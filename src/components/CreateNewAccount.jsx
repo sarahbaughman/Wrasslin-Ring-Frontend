@@ -37,26 +37,25 @@ function CreateNewAccount() {
 
     
     
-    const submitNewUser = (event, newUser) => {
+    
+    const submitNewUser = (event) => {
         event.preventDefault();
 
-        const data = new FormData(event.currentTarget);
+    const data = new FormData(event.currentTarget);
 
-        const newUser = {
-            name: data.get('name'),
-            regions: data.get('regions'),
-            weight: data.get('weight'),
-            phone: data.get('phone'),
-            email: data.get('email'),
-            instagram: data.get('instagram'),
-            payment: data.get('payment'),
-            username: data.get('username'),
-            password: data.get('password'),
-            image: data.get('image'),
-            "role": "wrestler"
-        }
-
-        
+    const newUser = {
+        name: data.get('name'),
+        regions: data.get('regions'),
+        weight: data.get('weight'),
+        phone: data.get('phone'),
+        email: data.get('email'),
+        instagram: data.get('instagram'),
+        payment: data.get('payment'),
+        username: data.get('username'),
+        password: data.get('password'),
+        image: data.get('image'),
+        role: "wrestler"
+    }
 
         fetch('/signup', {
             method: "POST",
@@ -65,14 +64,8 @@ function CreateNewAccount() {
             },
             body: JSON. stringify(newUser),
         })
-        .then((res) => {
-
-        })
-        
-        console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-        });
+        .then (r => r.json())
+        .then(data => console.log(data))
     };
     
     return (
@@ -96,10 +89,10 @@ function CreateNewAccount() {
                 <Grid item xs={12}>
                     <TextField
                     autoComplete="given-name"
-                    name="firstName"
+                    name="name"
                     required
                     fullWidth
-                    id="firstName"
+                    id="name"
                     label="Wrestler Name"
                     autoFocus
                     />
