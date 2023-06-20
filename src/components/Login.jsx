@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {Redirect} from 'react-router-dom'
+import { Link} from 'react-router-dom';
 
 import { UserContext } from './../context/UserContext';
 
@@ -123,7 +124,7 @@ return (
                 </Link> */}
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to='/createnewaccount' href="#" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

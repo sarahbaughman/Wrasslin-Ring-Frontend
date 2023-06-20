@@ -1,7 +1,12 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
+import WrestlerCard from "./WrestlerCard"
+import { UserContext } from './../context/UserContext';
+import {Redirect} from 'react-router-dom'
 
 
 function Wrestlers(){
+
+const { user } = useContext(UserContext);
 
 const [wrestlers, setWrestlers] = useState([])
 
@@ -13,13 +18,27 @@ fetch("/users")
 console.log("wrestlers")
 console.log(wrestlers)
 
-
-
-return (
-    <>
-    <p>Hello from the wrestlers page</p>
-    </>
+const renderWrestlers = wrestlers.map((wrestler) => 
+    <WrestlerCard 
+        key = {wrestler.id}
+        wrestler = {wrestler}
+    />
 )
+
+if (user){
+    return (
+        <div>
+            <h1>WRESTLERS PAGE</h1>
+            {renderWrestlers}
+        </div>
+    )
+}
+
+if (!user){
+    return <Redirect to='/'/>
+}
+
+
 }
 
 export default Wrestlers
