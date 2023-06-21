@@ -1,6 +1,4 @@
 import React, {useContext} from "react";
-// import { UserContext } from './../context/UserContext';
-
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,8 +12,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { SettingsBackupRestoreRounded } from "@mui/icons-material";
+import { UserContext } from '../context/UserContext';
+import {Redirect} from 'react-router-dom'
 
-  // const { user, setUser, logoutUser} = useContext(UserContext);
+
 
 
 function Copyright(props) {
@@ -33,11 +34,9 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-function CreateNewAccount() {
+function PromotorSignup() {
+    const { user, setUser } = useContext(UserContext);
 
-    
-    
-    
     const submitNewUser = (event) => {
         event.preventDefault();
 
@@ -45,16 +44,11 @@ function CreateNewAccount() {
 
     const newUser = {
         name: data.get('name'),
-        regions: data.get('regions'),
-        weight: data.get('weight'),
         phone: data.get('phone'),
         email: data.get('email'),
-        instagram: data.get('instagram'),
-        payment: data.get('payment'),
         username: data.get('username'),
         password: data.get('password'),
-        image: data.get('image'),
-        role: "wrestler"
+        role: "promotor"
     }
 
         fetch('/signup', {
@@ -65,10 +59,18 @@ function CreateNewAccount() {
             body: JSON. stringify(newUser),
         })
         .then (r => r.json())
-        .then(data => console.log(data))
+        .then(user => setUser(user))
     };
+
+    console.log("Current user")
+    console.log(user)
+
+    if (user){
+            return <Redirect to='/dashboard'/>
+        }
     
     return (
+
         <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -80,9 +82,8 @@ function CreateNewAccount() {
                 alignItems: 'center',
             }}
             >
-            
             <Typography component="h1" variant="h5">
-                Sign up
+                Promotor Sign Up
             </Typography>
             <Box component="form" noValidate onSubmit={submitNewUser} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
@@ -108,7 +109,7 @@ function CreateNewAccount() {
                     autoComplete="username"
                     />
                 </Grid>
-              
+
                 <Grid item xs={12}>
                     <TextField
                     required
@@ -143,66 +144,6 @@ function CreateNewAccount() {
                     />
                 </Grid>
 
-                <Grid item xs={12}>
-                    <TextField
-                    // required
-                    fullWidth
-                    name="instagram"
-                    label="Instagram @"
-                    type="instagram"
-                    id="instagram"
-                    autoComplete="instagram"
-                    />
-                </Grid>
-
-                <Grid item xs={12}>
-                    <TextField
-                    // required
-                    fullWidth
-                    name="regions"
-                    label="Regions Where You Wrestle"
-                    type="regions"
-                    id="regions"
-                    autoComplete="new-password"
-                    />
-                </Grid>
-            
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    name="weight"
-                    label="Weight (lbs)"
-                    type="weight"
-                    id="weight"
-                    autoComplete="new-password"
-                    />
-                </Grid>
-
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    name="image"
-                    label="Wrestler Image (provide weblink)"
-                    type=""
-                    id="image"
-                    autoComplete=""
-                    />
-                </Grid>
-
-
-                <Grid item xs={12}>
-                    <TextField
-                    required
-                    fullWidth
-                    name="payment"
-                    label="Payment (enter Venmo, Cashapp, etc. Username)"
-                    type=""
-                    id="image"
-                    autoComplete="image"
-                    />
-                </Grid>
 
                 </Grid>
                 <Button
@@ -228,4 +169,4 @@ function CreateNewAccount() {
     );
 }
 
-export default CreateNewAccount
+export default PromotorSignup

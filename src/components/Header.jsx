@@ -10,12 +10,14 @@ function Header() {
 
 return (
     <>
-        <p>Hello from the header</p>
+        <p style={{ textAlign: 'center' }}>WRASSLIN' RING</p>
         
         {user ? 
         (<button
-        onClick  = {logoutUser}
-        >Logout</button>) 
+            onClick  = {logoutUser}
+            style={{ float: 'right' }}
+            >Logout
+        </button>) 
         : null}
 
         {/* darkmode button with functionality  */}

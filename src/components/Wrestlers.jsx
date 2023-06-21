@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react'
 import WrestlerCard from "./WrestlerCard"
-import { UserContext } from './../context/UserContext';
+import { UserContext } from '../context/UserContext';
 import {Redirect} from 'react-router-dom'
 
 
