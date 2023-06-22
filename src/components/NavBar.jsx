@@ -7,8 +7,6 @@ function NavBar() {
 
 const {user} = useContext(UserContext);
 
-console.log(user)
-
 return (
     <div>
         {user && user.role === 'promotor' ? (

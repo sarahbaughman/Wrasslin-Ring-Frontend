@@ -19,7 +19,7 @@ function ShowCard({show}){
                     </Card.Text> */}
                 </Card.Body>
                 <ListGroup className="list-group-flush">
-                    <ListGroup.Item>Date: {date}</ListGroup.Item>
+                    <ListGroup.Item>Date:{date}</ListGroup.Item>
                     <br></br>
                     <ListGroup.Item>{venue}</ListGroup.Item>
                     <ListGroup.Item>{address}</ListGroup.Item>

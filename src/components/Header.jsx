@@ -6,7 +6,6 @@ import { UserContext } from './../context/UserContext';
 function Header() {
 
     const { user, setUser, logoutUser} = useContext(UserContext);
-    
 
 return (
     <>

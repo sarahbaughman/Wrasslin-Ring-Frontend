@@ -5,13 +5,14 @@ import { UserContext } from '../context/UserContext';
 // import { Redirect } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import ShowCard from './ShowCard'
+import {Redirect} from 'react-router-dom'
+import MatchCard from './MatchCard'
+
 
 function MatchBuilder() {
-  const { user } = useContext(UserContext);
-  const [wrestlers, setWrestlers] = useState([]);
+    const { user } = useContext(UserContext);
+    const [wrestlers, setWrestlers] = useState([]);
     const [selectedWrestlers, setSelectedWrestlers] = useState([]);
-
-
 
     useEffect(() => {
     fetch('/users')
@@ -38,6 +39,7 @@ function MatchBuilder() {
 };
 
 const wrestlerLine = wrestlers.map((wrestler) => (
+    <li>
     <FormControlLabel
         key={wrestler.id}
         control={
@@ -52,6 +54,7 @@ const wrestlerLine = wrestlers.map((wrestler) => (
         }
         label={wrestler.name}
     />
+    </li>
 ));
 
 // choose wrestlers stuff 
@@ -135,7 +138,7 @@ const wrestlerLine = wrestlers.map((wrestler) => (
                 if (r.status === 201) {
                 
                 return r.json().then((newMatchData) => {
-                    setMatches(newMatchData);
+                    setMatches([...matches, newMatchData]);
                     resetMatchForm();
 
                 selectedWrestlers.map((wrestler) => {
@@ -211,9 +214,6 @@ const wrestlerLine = wrestlers.map((wrestler) => (
         resetShowForm()
     }})}
 
-        console.log("show")
-        console.log(show)
-
         const resetShowForm = () => {
             setShowName("")
             setVenueName("")
@@ -223,10 +223,60 @@ const wrestlerLine = wrestlers.map((wrestler) => (
             setDate("")
             setWhereToView("")
         }
+     
+//Completed Match Cards Code 
+
+// useEffect(() => {
+//     fetch("/matches")
+//     .then((response) => {
+//     if (response.ok) {
+//         response.json()
+//     .then(data => console.log(data));
+//     }
+//     });
+//     }, []);
+
+    const filteredMatches = matches.filter(match => match.show_id === show.id)
+    console.log("Filtered Matches")
+    console.log(filteredMatches)
+        
+        const renderCompletedMatches = filteredMatches.map(match => (
+            <MatchCard
+                key={match.id}
+                match={match}
+            />
+        ));
         
 
 
 
+
+//Completed Show Cards Code
+        const [completedShows, setCompletedShows] = useState([])
+
+        useEffect(() => {
+            if (user) {
+                fetch("/shows")
+                .then((response) => {
+                if (response.ok) {
+                    response.json()
+                .then(data => {
+                    setCompletedShows(data);
+                });
+                }
+                });
+            }
+        }, [user]);
+
+        const filteredShows = completedShows.filter(show => show.created_by_user_id === user.id)
+        
+        const renderCompletedShows = filteredShows.map(show => (
+            <ShowCard
+                key={show.id}
+                show={show}
+            />
+        ));
+        
 
 
 // _____________________________
@@ -307,7 +357,7 @@ return (
 
         <button type="submit">Build Show!</button>  
     </form> 
-   </div>
+    </div>
     
     ) : (null)
 
@@ -323,9 +373,9 @@ return (
 
     {show.length === 0 ? (null) : (
     <div>
-    <h1>Match Builder</h1>
     <ShowCard show = {show}/>
-   
+    <h1>Match Builder</h1>
+
     <form onSubmit = {submitMatch}>
 
         <Form.Control 
@@ -353,12 +403,23 @@ return (
     
     </div>
     
-   )}
+    )}
 
-   {show.length === 0 ? (null): ([wrestlerLine])}
+    {show.length === 0 ? (null): ([wrestlerLine])}
+
+    {renderCompletedMatches}
+
+
+    <h1>Completed Shows</h1>
+
+
+        {renderCompletedShows}
+
+
+
+
 
     </div>
-)  
-}
+)}
 
 export default MatchBuilder;

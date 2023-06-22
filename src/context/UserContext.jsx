@@ -24,8 +24,6 @@ useEffect(() => {
 }, []);
 
 function logoutUser(){
-
-    console.log("hi")
     fetch("/logout", {
         method: "DELETE"
     }).then(res => {
