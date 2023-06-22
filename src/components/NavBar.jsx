@@ -17,8 +17,8 @@ return (
                 Dashboard
             </NavLink>
             <br></br>
-            <NavLink to="/matchbuilder" exact className="nav-link">
-                Build Show Card
+            <NavLink to="/buildshow" exact className="nav-link">
+                Build Show 
             </NavLink>
             <br></br>
             <NavLink to="/showarchive" className="nav-link">

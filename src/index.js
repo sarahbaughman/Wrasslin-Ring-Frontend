@@ -2,16 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import {UserProvider} from './context/UserContext'
-import {RosterProvider} from './context/RosterContext'
+
 
 ReactDOM.render(
-    <RosterProvider>
+
         <UserProvider>
             <React.StrictMode>
                 <App />
             </React.StrictMode>
-        </UserProvider>
-    </RosterProvider>,
+        </UserProvider>,
+
     document.getElementById('root')
 );
 
