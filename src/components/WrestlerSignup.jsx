@@ -234,5 +234,5 @@ function WrestlerSignup() {
         </ThemeProvider>
     );
 }
-
+ 
 export default WrestlerSignup

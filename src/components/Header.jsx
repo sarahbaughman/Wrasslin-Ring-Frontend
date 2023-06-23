@@ -1,15 +1,23 @@
 import React, {useContext} from "react";
 import { UserContext } from './../context/UserContext';
+import {Redirect} from 'react-router-dom'
+import './Header.css'
 
 
 
 function Header() {
 
-    const { user, setUser, logoutUser} = useContext(UserContext);
+    const { user, logoutUser} = useContext(UserContext);
+
+    if (!user){
+            return <Redirect to='/'/>
+        }
+    
 
 return (
-    <>
-        <p style={{ textAlign: 'center' }}>WRASSLIN' RING</p>
+    <body className="Header">
+        {/* <img style={{ textAlign: 'left', height: 150}}src = "https://www.seekpng.com/png/detail/163-1632409_boxing-ring-wrestling-ring-clip-art.png"></img> */}
+        <p  style={{ textAlign: 'center' }}>WRASSLIN' RING</p>
         
         {user ? 
         (<button
@@ -20,7 +28,7 @@ return (
         : null}
 
         {/* darkmode button with functionality  */}
-    </>
+    </body>
 )
 
 }

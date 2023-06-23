@@ -14,12 +14,14 @@ function MatchBuilder() {
     const [wrestlers, setWrestlers] = useState([]);
     const [selectedWrestlers, setSelectedWrestlers] = useState([]);
 
+//Grabs all wrestler users
     useEffect(() => {
     fetch('/users')
         .then((r) => r.json())
-        .then((user) => setWrestlers(user));
+        .then((data) => setWrestlers(data));
     }, []);
 
+//Updates the selected wrestlers as their box is checked 
     const handleChange = (event, wrestler) => {
     const updatedSelectedWrestlers = [...selectedWrestlers];
 
@@ -38,6 +40,7 @@ function MatchBuilder() {
     setSelectedWrestlers(updatedSelectedWrestlers);
 };
 
+//Creates list of wrestlers with their checked boxes
 const wrestlerLine = wrestlers.map((wrestler) => (
     <li>
     <FormControlLabel
@@ -63,13 +66,8 @@ const wrestlerLine = wrestlers.map((wrestler) => (
     const [matchType, setMatchType] = useState('')
     const [storyLine, setStoryline] = useState('')
     const [matches, setMatches] = useState([])
-    const [show, setShow] = useState([])
 
-    
-    const resetMatchForm = () => {
-        setMatchType("")
-        setStoryline("")
-    }
+
 
     // function submitMatch(event){
     //     event.preventDefault()
@@ -117,6 +115,13 @@ const wrestlerLine = wrestlers.map((wrestler) => (
     //         setSelectedWrestlers([])
     // }}))
     // }
+
+//Creates the match and the match wrestlers when user clicks "Create Match "
+    
+    const resetMatchForm = () => {
+        setMatchType("")
+        setStoryline("")
+    }
 
     function submitMatch(event) {
         event.preventDefault();
@@ -177,6 +182,7 @@ const wrestlerLine = wrestlers.map((wrestler) => (
 // match stuff
 // __________________________
 // show stuff 
+    const [show, setShow] = useState([])
 
     const [showName, setShowName] = useState("")
     const [venueName, setVenueName] = useState("")
@@ -186,7 +192,7 @@ const wrestlerLine = wrestlers.map((wrestler) => (
     const [date, setDate] = useState("")
     const [whereToView, setWhereToView] = useState("")
 
-
+// Creates new show, pairs it with the user
     function submitShow(event){
         event.preventDefault()
  
@@ -235,6 +241,9 @@ const wrestlerLine = wrestlers.map((wrestler) => (
 //     }
 //     });
 //     }, []);
+
+//Filters from matches 
+//Night need to add the fetch request above back in when we get to editing shows and matches 
 
     const filteredMatches = matches.filter(match => match.show_id === show.id)
     console.log("Filtered Matches")
@@ -410,7 +419,7 @@ return (
     {renderCompletedMatches}
 
 
-    <h1>Completed Shows</h1>
+    <h1>Upcoming Shows</h1>
 
 
         {renderCompletedShows}

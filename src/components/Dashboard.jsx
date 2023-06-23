@@ -1,15 +1,10 @@
 import React, {useContext} from "react";
 import { UserContext } from './../context/UserContext'
-import {Redirect} from 'react-router-dom'
 
 
 function Dashboard(){
 
     const {user} = useContext(UserContext);
-
-    if (!user){
-        return <Redirect to='/'/>
-    }
 
     return (
        
@@ -29,7 +24,7 @@ function Dashboard(){
 
             {user && user.role === 'wrestler' ? (
                 <>
-                    <img src= {user.image}></img>
+                    <img style={{ height: '18rem'}}src= {user.image}></img>
                     <h1> Hello {user.name}</h1>
                     <p>This is your dashboard</p>
                 </>

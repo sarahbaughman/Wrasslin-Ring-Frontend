@@ -23,7 +23,7 @@ function WrestlerCard({wrestler}) {
 
       <Figure.Caption>
         <h4> Name: {name}</h4>
-        {user && user.role === 'promotor' ? (<button>Add to Roster</button>) : null}
+        {/* {user && user.role === 'promotor' ? (<button>Add to Roster</button>) : null} */}
         <h5>Weight: {weight}</h5>
         <h5>Regions: {regions}</h5>
         <h5>Instagram: {instagram}</h5>
