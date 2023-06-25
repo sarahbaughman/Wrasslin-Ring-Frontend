@@ -1,7 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Form from 'react-bootstrap/Form';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import { UserContext } from './../context/UserContext';
+import { Card } from 'semantic-ui-react'
 
 
 function SubmitStoryline(){
@@ -12,6 +14,23 @@ function SubmitStoryline(){
     //Wrestlers that are selected
     const [selectedWrestlers, setSelectedWrestlers] = useState([]);
 
+    const [matchData, setMatchData] = useState([])
+
+    const { user } = useContext(UserContext);
+
+    const renderMatchCard = matchData.map(match => {   
+
+    return <Card
+            header={match.type}
+            meta={match.storyline}
+            description = "Hello"
+            extra = {match.proposed_match_wrestlers.map(wrestler => <li>{wrestler.user.name}</li>)}
+            // description = {match.proposed_match_wrestlers.map(wrestler => {wrestler.name}</li> )}
+        />
+        }
+        )
+
+
 //Grabs all wrestler users
     useEffect(() => {
     fetch('/users')
@@ -19,6 +38,13 @@ function SubmitStoryline(){
         .then((data) => setWrestlers(data));
     }, []);
 
+    useEffect(() => {
+        fetch('/proposedmatchesbyuserid')
+            .then((r) => r.json())
+            .then((data) => setMatchData(data));
+        }, [])
+        console.log("Match Data")
+        console.log(matchData)
 //Updates the selected wrestlers as their box is checked 
     const handleChange = (event, wrestler) => {
     const updatedSelectedWrestlers = [...selectedWrestlers];
@@ -57,31 +83,53 @@ const wrestlerLine = wrestlers.map((wrestler) => (
     </li>
 ));
 
-// const wrestlerObj = selectedWrestlers.map(wrestler => {
-//     user_id: wrestler.id;
-//     match_id: newMatchData.id;
-// }
-// )
 
-// const to_back = {
-//                     match : {
-//                         type: subMatchType,
-//                         storyline: subStoryline,
-//                     },
 
-//                     match_wrestlers: [wrestlerObj]
 
-// }
+    function submitProposedMatch (event) {
+        event.preventDefault();
+
+        const wrestlersArr = selectedWrestlers.map((wrestler) => {
+            return {
+                user_id: wrestler.id
+            }
+            })
         
-        console.log(selectedWrestlers)
+        const matchPost = {
+            match : {
+                type: subMatchType,
+                storyline: subStoryline,
+                submitted_user_id : user.id,
+            },
+        
+            wrestlers: wrestlersArr
+        }
+
+        fetch('/proposedmatches', {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(matchPost),
+        })
+        .then((r) => {
+            if (r.status === 201) {
+                return r.json()
+            .then(propMatchData => setMatchData([...matchData, propMatchData]));
+            // .then(propMatchData => console.log(propMatchData));
+            }
+        })
+
+    }
+
+
 
     return (
         <div>
 
             <h1> Hello from the Storyline</h1>
 
-            {/* <form onSubmit = {submitMatch}> */}
-            <form>
+            <form onSubmit = {submitProposedMatch}>
                 <Form.Control 
                     as="textarea" 
                     placeholder="Match Type" 
@@ -104,6 +152,8 @@ const wrestlerLine = wrestlers.map((wrestler) => (
                 <button type="submit">Submit Match</button>
                 
             </form>
+
+            {renderMatchCard}
 
         </div>
     )
