@@ -8,6 +8,11 @@ import Wrestlers from './Wrestlers'
 import SwitchLabel from './SwitchLabel'
 import BuildShow from './BuildShow'
 import SubmitStoryline from './SubmitStoryline'
+import Storylines from "./Storylines"
+import WrestlerShowHistory from "./WrestlerShowHistory"
+import WrestlerUpcomingShows from './WrestlerUpcomingShows'
+import PromotorShowArchive from "./PromotorShowArchive"
+
 // import MatchBuilder from './BuildShow'
 
 import { UserContext } from './../context/UserContext';
@@ -21,7 +26,7 @@ console.log("This is the user:")
 console.log(user)
 
 return (
-  <div>
+
     <Router>
         <Header/>
         <NavBar/>
@@ -32,9 +37,13 @@ return (
           <Route exact path="/createnewaccount" component={SwitchLabel}/>
           <Route exact path="/buildshow" component={BuildShow}/>
           <Route exact path="/submitstoryline" component={SubmitStoryline}/>
+          <Route exact path = "/storylines" component = {Storylines} />
+          <Route exact path = "/showhistory" component = {WrestlerShowHistory} />
+          <Route exact path = "/upcomingshows" component = {WrestlerUpcomingShows}/>
+          <Route exact path = "/showarchive" component = {PromotorShowArchive}/>
         </Switch>
     </Router>
-  </div>
+
 )
 
 }

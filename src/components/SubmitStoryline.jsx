@@ -32,14 +32,18 @@ function SubmitStoryline(){
     //creating match card for each match in matchData
     const renderMatchCard = matchData.map(match => {   
 
-        const editPropMatchCard = () => {
-            setSelectedWrestlers([])
-            setSubMatchType(match.type)
-            setSubStoryline(match.storyline)
-            {match.proposed_match_wrestlers.map(wrestler => setSelectedWrestlers([...selectedWrestlers, wrestler]))}
-            console.log("After")
-            console.log(selectedWrestlers)
-        }
+        console.log(match.proposed_match_wrestlers)
+
+        // const editPropMatchCard = () => {
+        //     setSelectedWrestlers([])
+        //     setSubMatchType(match.type)
+        //     setSubStoryline(match.storyline)
+        //     // setMychecked(!mychecked)
+        //     {match.proposed_match_wrestlers.map(wrestler => setSelectedWrestlers(prevSelectedWrestlers => [...prevSelectedWrestlers, wrestler.id]))}
+        //     // {match.proposed_match_wrestlers.map(wrestler => setSelectedWrestlers([...selectedWrestlers, wrestler]))}
+        //     // console.log("After")
+        //     // console.log(selectedWrestlers)
+        // }
 
         return (
 
@@ -53,7 +57,7 @@ function SubmitStoryline(){
                     <br></br>
                     <Card.Description>{match.proposed_match_wrestlers.map(wrestler => <li style = {{listStyleType: 'none'}}>{wrestler.user.name}</li>)}</Card.Description>
                     <br></br>
-                    <Button basic color='orange' onClick = {editPropMatchCard}> Edit Match Idea </Button>
+                    <Button basic color='orange'> Edit Match Idea </Button>
                     <br></br><br></br>
                     <Button basic color='black'> Delete Match Idea </Button>
 
@@ -136,6 +140,7 @@ function SubmitStoryline(){
                 type: subMatchType,
                 storyline: subStoryline,
                 submitted_user_id : user.id,
+                submitted_user_name : user.name,
             },
         
             wrestlers: wrestlersArr
@@ -159,7 +164,7 @@ function SubmitStoryline(){
     }
 
 
-
+    const [mychecked, setMychecked] = useState(false)
     return (
         <div>
 
@@ -191,6 +196,14 @@ function SubmitStoryline(){
 
             {renderMatchCard}
 
+            <form>
+                <input
+                    label = "Label"
+                    type="checkbox"
+                    checked={mychecked}
+                    onChange={e => setMychecked(e.target.checked)}
+                />
+            </form>
         </div>
     )
 }

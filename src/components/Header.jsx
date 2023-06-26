@@ -15,7 +15,7 @@ function Header() {
     
 
 return (
-    <body className="Header">
+    <div className="Header">
         {/* <img style={{ textAlign: 'left', height: 150}}src = "https://www.seekpng.com/png/detail/163-1632409_boxing-ring-wrestling-ring-clip-art.png"></img> */}
         <p  style={{ textAlign: 'center' }}>WRASSLIN' RING</p>
         
@@ -28,7 +28,7 @@ return (
         : null}
 
         {/* darkmode button with functionality  */}
-    </body>
+    </div>
 )
 
 }

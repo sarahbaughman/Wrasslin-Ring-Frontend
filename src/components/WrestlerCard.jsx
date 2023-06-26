@@ -1,9 +1,7 @@
 import React, {useContext} from 'react';
 import Figure from 'react-bootstrap/Figure'
 import { UserContext } from './../context/UserContext';
-// import FigureImage from 'react-bootstrap/FigureImage'
-// import FigureCaption from 'react-bootstrap/FigureCaption'
-
+import { Card, Button, Image } from 'semantic-ui-react'
 
 
 function WrestlerCard({wrestler}) {
@@ -13,24 +11,21 @@ function WrestlerCard({wrestler}) {
   const {user} = useContext(UserContext);
 
   return (
-    <Figure>
-      <Figure.Image
-        // width={171}
-        height={180}
-        alt="171x180"
-        src={image}
-      />
 
-      <Figure.Caption>
-        <h4> Name: {name}</h4>
-        {/* {user && user.role === 'promotor' ? (<button>Add to Roster</button>) : null} */}
-        <h5>Weight: {weight}</h5>
-        <h5>Regions: {regions}</h5>
-        <h5>Instagram: {instagram}</h5>
 
-      </Figure.Caption>
-
-    </Figure>
+    <Card>
+      <Card.Content>
+        <Image
+          floated='right'
+          size='large'
+          src={image}
+        />
+        <Card.Header>{name}</Card.Header>
+        <Card.Meta>Instagram: {instagram}</Card.Meta>
+        <Card.Description> <strong>Weight: {weight}</strong></Card.Description>
+        <Card.Description> <strong>Regions: {regions}</strong></Card.Description>
+      </Card.Content> 
+    </Card>
   );
   
 }

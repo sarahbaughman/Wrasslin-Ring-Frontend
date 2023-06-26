@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import FormGroup from '@mui/material/FormGroup';
 import WrestlerSignup from './WrestlerSignup'
 import PromotorSignup from './PromotorSignup';
+// import Header from './Header'
 
 function SwitchLabel() {
 
@@ -16,6 +17,7 @@ function SwitchLabel() {
 
 return (
     <div>
+
     <h2>Are you signing up as a....</h2>
     <FormGroup>
     <Stack direction="row" spacing={1} alignItems="center">

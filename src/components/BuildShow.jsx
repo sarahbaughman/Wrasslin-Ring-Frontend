@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { UserContext } from '../context/UserContext';
-// import { Redirect } from 'react-router-dom';
 import Form from 'react-bootstrap/Form';
 import ShowCard from './ShowCard'
 import {Redirect} from 'react-router-dom'

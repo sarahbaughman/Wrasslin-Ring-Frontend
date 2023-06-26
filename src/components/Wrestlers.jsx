@@ -21,10 +21,10 @@ const renderWrestlers = wrestlers.map((wrestler) =>
         wrestler = {wrestler}
     />
 )
-
+console.log(wrestlers)
 if (user){
     return (
-        <div>
+        <div className = 'wrapper'>
             <h1>WRESTLERS PAGE</h1>
             {renderWrestlers}
         </div>
