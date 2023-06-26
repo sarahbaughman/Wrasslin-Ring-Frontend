@@ -11,12 +11,9 @@ const { user } = useContext(UserContext);
 const [wrestlers, setWrestlers] = useState([])
 
 useEffect(() => { 
-fetch("/users")
-.then(r => r.json())
-.then(user => setWrestlers(user))}, [])
-
-console.log("wrestlers")
-console.log(wrestlers)
+    fetch("/users")
+    .then(r => r.json())
+    .then(user => setWrestlers(user))}, [])
 
 const renderWrestlers = wrestlers.map((wrestler) => 
     <WrestlerCard 

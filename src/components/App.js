@@ -34,7 +34,6 @@ return (
           <Route exact path="/submitstoryline" component={SubmitStoryline}/>
         </Switch>
     </Router>
-    <p>Hello from the app</p>
   </div>
 )
 

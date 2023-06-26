@@ -3,32 +3,63 @@ import Form from 'react-bootstrap/Form';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { UserContext } from './../context/UserContext';
-import { Card } from 'semantic-ui-react'
+import { Card, Button } from 'semantic-ui-react'
 
 
 function SubmitStoryline(){
+    const { user } = useContext(UserContext);
+    //Form state 
     const [subMatchType, setSubMatchType] = useState("")
     const [subStoryline, setSubStoryline] = useState("")
+
     // Grabbing all wrestlers so they show up in the wrestler selection
     const [wrestlers, setWrestlers] = useState([])
+
     //Wrestlers that are selected
     const [selectedWrestlers, setSelectedWrestlers] = useState([]);
-
+    
+    //Pulling proposed matches that have been suggested by this wrestler
     const [matchData, setMatchData] = useState([])
 
-    const { user } = useContext(UserContext);
 
+    // console.log("selected wrestlers")
+    // console.log(selectedWrestlers)
+    
+    // console.log("MatchData")
+    // console.log(matchData)
+    
+
+    //creating match card for each match in matchData
     const renderMatchCard = matchData.map(match => {   
 
-    return <Card
-            header={match.type}
-            meta={match.storyline}
-            description = "Hello"
-            extra = {match.proposed_match_wrestlers.map(wrestler => <li>{wrestler.user.name}</li>)}
-            // description = {match.proposed_match_wrestlers.map(wrestler => {wrestler.name}</li> )}
-        />
+        const editPropMatchCard = () => {
+            setSelectedWrestlers([])
+            setSubMatchType(match.type)
+            setSubStoryline(match.storyline)
+            {match.proposed_match_wrestlers.map(wrestler => setSelectedWrestlers([...selectedWrestlers, wrestler]))}
+            console.log("After")
+            console.log(selectedWrestlers)
         }
-        )
+
+        return (
+
+            <Card>
+                <Card.Content>
+
+                    <Card.Header>{match.type}</Card.Header>
+                    <Card.Description>{match.storyline}</Card.Description>
+                    <br></br>
+                    <Card.Description> <strong> Wrestlers: </strong> </Card.Description>
+                    <br></br>
+                    <Card.Description>{match.proposed_match_wrestlers.map(wrestler => <li style = {{listStyleType: 'none'}}>{wrestler.user.name}</li>)}</Card.Description>
+                    <br></br>
+                    <Button basic color='orange' onClick = {editPropMatchCard}> Edit Match Idea </Button>
+                    <br></br><br></br>
+                    <Button basic color='black'> Delete Match Idea </Button>
+
+                </Card.Content>
+            </Card>
+    )})
 
 
 //Grabs all wrestler users
@@ -43,8 +74,8 @@ function SubmitStoryline(){
             .then((r) => r.json())
             .then((data) => setMatchData(data));
         }, [])
-        console.log("Match Data")
-        console.log(matchData)
+  
+
 //Updates the selected wrestlers as their box is checked 
     const handleChange = (event, wrestler) => {
     const updatedSelectedWrestlers = [...selectedWrestlers];
@@ -54,38 +85,43 @@ function SubmitStoryline(){
     } else {
         const index = updatedSelectedWrestlers.findIndex(
             (selectedWrestler) => selectedWrestler.id === wrestler.id
-        );
-    
-    if (index > -1) {
-        updatedSelectedWrestlers.splice(index, 1);
-    }
+            );
+        
+        if (index > -1) {
+            updatedSelectedWrestlers.splice(index, 1);
+        }
     }
 
     setSelectedWrestlers(updatedSelectedWrestlers);
-};
+    };
 
-const wrestlerLine = wrestlers.map((wrestler) => (
-    <li>
-    <FormControlLabel
-        key={wrestler.id}
-        control={
-        <Checkbox
-            checked={selectedWrestlers.some(
-            (selectedWrestler) => selectedWrestler.id === wrestler.id
-            )}
-            onChange={(event) => handleChange(event, wrestler)}
-            value={wrestler.name}
-            inputProps={{ 'aria-label': 'controlled' }}
+    // Creates list of wrestler names with the checked box
+    const wrestlerLine = wrestlers.map((wrestler) => (
+        <li style = {{listStyleType: 'none'}}>
+        <FormControlLabel
+            key={wrestler.id}
+            control={
+                <Checkbox
+                    checked={selectedWrestlers.some(
+                    (selectedWrestler) => selectedWrestler.id === wrestler.id
+                    )}
+                    onChange={(event) => handleChange(event, wrestler)}
+                    value={wrestler.name}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                />
+            }
+            label={wrestler.name}
         />
-        }
-        label={wrestler.name}
-    />
-    </li>
-));
+        </li>
+    ));
 
+    //Clears form once proposed match is submitted
+    const resetProposedMatchForm = () => {
+        setSubMatchType("")
+        setSubStoryline("")
+    }
 
-
-
+    //Posts match to ProposedMatch and ProposedMatchWrestler
     function submitProposedMatch (event) {
         event.preventDefault();
 
@@ -116,10 +152,10 @@ const wrestlerLine = wrestlers.map((wrestler) => (
             if (r.status === 201) {
                 return r.json()
             .then(propMatchData => setMatchData([...matchData, propMatchData]));
-            // .then(propMatchData => console.log(propMatchData));
-            }
+        }
         })
-
+        resetProposedMatchForm()
+        setSelectedWrestlers([])
     }
 
 
@@ -127,7 +163,7 @@ const wrestlerLine = wrestlers.map((wrestler) => (
     return (
         <div>
 
-            <h1> Hello from the Storyline</h1>
+            <h1> Storyline Ideas</h1>
 
             <form onSubmit = {submitProposedMatch}>
                 <Form.Control 
