@@ -198,7 +198,7 @@ const [currentShow, setCurrentShow] = useState([])
         const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
 
         return (
-            <Card style={{ display: 'inline-block'}}>
+            <Card style = {{width: "90%"}} >
                 <Card.Content>
 
                     <Card.Header>{show.name}</Card.Header>
@@ -209,7 +209,7 @@ const [currentShow, setCurrentShow] = useState([])
                     <Card.Header>Matches:</Card.Header>
                     {show.matches.map(match => {
                         return (
-                            <Card>
+                            <Card style = {{width: "100%"}}>
                                 <Card.Content>
                                     <Card.Header>{match.type}</Card.Header>
                                     <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>
@@ -254,7 +254,7 @@ const [currentShow, setCurrentShow] = useState([])
     , [matches, editingShow]);
         
         
-
+    const [editingMatch, setEditingMatch] = useState()
 
     const renderUpcomingShows = upcomingShows.map(show => {
 
@@ -269,7 +269,9 @@ const [currentShow, setCurrentShow] = useState([])
             setWhereToView(show.where_to_view)
             setEditingShow(show)
         }
-    
+      
+        
+
         function onShowDelete(id) {
             const updatedUpcomingShows = upcomingShows.filter((show) => show.id !== id);
             setUpcomingShows(updatedUpcomingShows);
@@ -288,8 +290,8 @@ const [currentShow, setCurrentShow] = useState([])
         const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
 
         return (
-            <Card style={{ display: 'inline-block'}}>
-                <Card.Content>
+            <Card style = {{width: "90%"}}>
+                <Card.Content >
 
                     <Card.Header>{show.name}</Card.Header>
                     <Card.Description><strong>Date:</strong> {formattedDate}</Card.Description>
@@ -302,8 +304,13 @@ const [currentShow, setCurrentShow] = useState([])
                     <br></br>
                     <Card.Header>Match Lineup:</Card.Header>
                     {show.matches.map(match => {
+
+                        const editMatch = () => {
+                            setEditingMatch(match)
+                        }
+                        
                         return (
-                            <Card>
+                            <Card style = {{width: "100%"}}>
                                 <Card.Content>
                                     <Card.Header>{match.type}</Card.Header>
                                     <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>
@@ -314,7 +321,7 @@ const [currentShow, setCurrentShow] = useState([])
                                         <Card.Description>{wrestler.user.name}</Card.Description>
                                         )
                                     })}
-                                    <Button basic color='orange'><strong>Edit Match</strong></Button>
+                                    <Button basic color='orange' onClick = {editMatch}><strong>Edit Match</strong></Button>
                                 </Card.Content>
                             </Card>
                         )
@@ -328,6 +335,7 @@ const [currentShow, setCurrentShow] = useState([])
 
         })
         
+        console.log(editingMatch)
 // --------------------------------------------------------------------------------
 // Submit edited show information 
 
@@ -465,7 +473,7 @@ return (
     ) : (null)
 
 }
-
+{/* && editingMatch.length === 0  */}
     {show.length === 0 ? (null) : (
         <div>
             <h1>Match Builder</h1>
