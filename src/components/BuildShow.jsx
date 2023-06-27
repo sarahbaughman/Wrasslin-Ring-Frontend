@@ -64,10 +64,7 @@ const wrestlerLine = wrestlers.map((wrestler) => (
 // choose wrestlers stuff 
   // __________________________________
 // match builder stuff
-    const [matchType, setMatchType] = useState('')
-    const [storyLine, setStoryline] = useState('')
-    const [matches, setMatches] = useState([])
-
+   
 
 
     // function submitMatch(event){
@@ -118,7 +115,11 @@ const wrestlerLine = wrestlers.map((wrestler) => (
     // }
 
 //Creates the match and the match wrestlers when user clicks "Create Match "
-    
+const [matchType, setMatchType] = useState('')
+const [storyLine, setStoryline] = useState('')
+const [matches, setMatches] = useState([])
+
+const [show, setShow] = useState([])
     const resetMatchForm = () => {
         setMatchType("")
         setStoryline("")
@@ -126,64 +127,45 @@ const wrestlerLine = wrestlers.map((wrestler) => (
 
     function submitMatch(event) {
         event.preventDefault();
-    
-        const newMatch = {
-            type: matchType,
-            storyline: storyLine,
-            show_id: show.id,
-        };
+
+        const wrestlersArr = selectedWrestlers.map((wrestler) => {
+            return {
+                user_id: wrestler.id
+            }
+        })
+
+        const newMatchPost = {
+            match : {
+                type: matchType,
+                storyline: storyLine,
+                show_id: show.id
+            },
+        
+            wrestlers: wrestlersArr
+        }
 
         fetch('/matches', {
             method: "POST",
             headers: {
             "Content-Type": "application/json",
             },
-            body: JSON.stringify(newMatch),
+            body: JSON.stringify(newMatchPost),
         })
-            .then((r) => {
-                if (r.status === 201) {
-                
-                return r.json().then((newMatchData) => {
-                    setMatches([...matches, newMatchData]);
-                    resetMatchForm();
-
-                selectedWrestlers.map((wrestler) => {
-                    fetch('/matchwrestlers', {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        user_id: wrestler.id,
-                        match_id: newMatchData.id,
-                    }),
-                })
-                    .then((r) => {
-                        if (r.status === 201) {
-                        return r.json().then((newMatchWrestler) =>
-                            console.log(newMatchWrestler)
-                        );
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("Error creating match wrestler:", error);
-                    });
-                });
-
-                setSelectedWrestlers([]);
-            });
-            }
-            })
-            .catch((error) => {
-                console.error("Error creating match:", error);
-        });
+        .then((r) => {
+            if (r.status === 201) {
+                return r.json()
+            .then(newMatchData => console.log(newMatchData));
+        }
+        })
+        resetMatchForm()
+        setSelectedWrestlers([])
     }
 
-
+    
 // match stuff
 // __________________________
 // Creating new show form state
-    const [show, setShow] = useState([])
+    
 
     const [showName, setShowName] = useState("")
     const [venueName, setVenueName] = useState("")
@@ -196,7 +178,7 @@ const wrestlerLine = wrestlers.map((wrestler) => (
 // Creates new show, pairs it with the user
     function submitShow(event){
         event.preventDefault()
- 
+
         const newShow = {
             name : showName,
             venue: venueName,
@@ -230,38 +212,6 @@ const wrestlerLine = wrestlers.map((wrestler) => (
             setDate("")
             setWhereToView("")
         }
-
-
-//Completed Match Cards Code 
-
-// useEffect(() => {
-//     fetch("/matches")
-//     .then((response) => {
-//     if (response.ok) {
-//         response.json()
-//     .then(data => console.log(data));
-//     }
-//     });
-//     }, []);
-
-//Filters from matches 
-//Night need to add the fetch request above back in when we get to editing shows and matches 
-
-
-// //Delete after figuring out
-//     const filteredMatches = matches.filter(match => match.show_id === show.id)
-//     console.log("Filtered Matches")
-//     console.log(filteredMatches)
-        
-//         const renderCompletedMatches = filteredMatches.map(match => (
-//             <MatchCard
-//                 key={match.id}
-//                 match={match}
-//             />
-//         ));
-        
-
-
 
 
 //Upcoming Show Cards with Matches Code - COMPLETE sans CSS---------------------------------------
