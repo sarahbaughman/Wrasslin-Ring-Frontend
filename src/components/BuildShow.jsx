@@ -3,9 +3,9 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { UserContext } from '../context/UserContext';
 // import Form from 'react-bootstrap/Form';
-import ShowCard from './ShowCard'
-import {Redirect} from 'react-router-dom'
-import MatchCard from './MatchCard'
+// import ShowCard from './ShowCard'
+// import {Redirect} from 'react-router-dom'
+// import MatchCard from './MatchCard'
 import {Card,Form,Input, Button} from 'semantic-ui-react'
 
 
@@ -17,6 +17,9 @@ function MatchBuilder() {
     const [wrestlers, setWrestlers] = useState([]);
     const [selectedWrestlers, setSelectedWrestlers] = useState([]);
     const [editMode, setEditMode] = useState(false)
+
+    const [editingShow, setEditingShow] = useState()
+
 
 //Grabs all wrestler users
     useEffect(() => {
@@ -233,80 +236,95 @@ const [currentShow, setCurrentShow] = useState([])
 
 
 //Upcoming Show Cards with Matches Code - COMPLETE sans CSS---------------------------------------
-        const [upcomingShows, setUpcomingShows] = useState([])
+    const [upcomingShows, setUpcomingShows] = useState([])
 
-        useEffect(() => {
-            // if (user) {
-                fetch("/promotorupcomingshows")
-                .then((response) => {
-                if (response.ok) {
-                    response.json()
-                .then(data => {
-                    setUpcomingShows(data);
-                    console.log(data)
-                });
-                }
-                });
+    useEffect(() => {
+        // if (user) {
+            fetch("/promotorupcomingshows")
+            .then((response) => {
+            if (response.ok) {
+                response.json()
+            .then(data => {
+                setUpcomingShows(data);
+
+            });
             }
-        , [matches]);
+            });
+        }
+    , [matches, editingShow]);
         
-        const [editingShow, setEditingShow] = useState()
+        
 
-        console.log(editingShow)
-        const renderUpcomingShows = upcomingShows.map(show => {
 
-            const editShowClick = () => {
-                setEditMode(true)
-                setShowName(show.name)
-                setVenueName(show.venue)
-                setStreetAddress(show.address)
-                setCity(show.city)
-                setState(show.city)
-                setDate(show.date)
-                setWhereToView(show.where_to_view)
-                setEditingShow(show)
-            }
-  
-            const dateParts = show.date.split('-');
-            const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
+    const renderUpcomingShows = upcomingShows.map(show => {
 
-            return (
-                <Card style={{ display: 'inline-block'}}>
-                    <Card.Content>
+        const editShowClick = () => {
+            setEditMode(true)
+            setShowName(show.name)
+            setVenueName(show.venue)
+            setStreetAddress(show.address)
+            setCity(show.city)
+            setState(show.city)
+            setDate(show.date)
+            setWhereToView(show.where_to_view)
+            setEditingShow(show)
+        }
+    
+        function onShowDelete(id) {
+            const updatedUpcomingShows = upcomingShows.filter((show) => show.id !== id);
+            setUpcomingShows(updatedUpcomingShows);
+        }
 
-                        <Card.Header>{show.name}</Card.Header>
-                        <Card.Description><strong>Date:</strong> {formattedDate}</Card.Description>
-                        <Card.Description><strong>Location:</strong> {show.venue},  {show.address},  {show.city}, {show.state}</Card.Description>
-                        <Card.Description><strong>Aired: </strong>{show.where_to_view}</Card.Description>
-                        <br></br>
-                        <Button basic color='black' onClick = {editShowClick}><strong>Edit Show</strong></Button>
-                        <br></br>
-                        <br></br>
-                        <Card.Header>Match Lineup:</Card.Header>
-                        {show.matches.map(match => {
-                            return (
-                                <Card>
-                                    <Card.Content>
-                                        <Card.Header>{match.type}</Card.Header>
-                                        <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>
-                                        <br></br>
-                                        <Card.Description><strong>Wrestlers:</strong></Card.Description>
-                                        {match.match_wrestlers.map(wrestler => {
-                                            return (
-                                            <Card.Description>{wrestler.user.name}</Card.Description>
-                                            )
-                                        })}
-                                        <Button basic color='orange'><strong>Edit Match</strong></Button>
-                                    </Card.Content>
-                                </Card>
-                            )
-                        })}
+        function deleteShowClick() {
+            
+            fetch(`/shows/${show.id}`, {
+                method: 'DELETE',
+            })
+            onShowDelete(show.id)
+        }
 
-                    </Card.Content>
 
-                </Card>
-                
-            )
+        const dateParts = show.date.split('-');
+        const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
+
+        return (
+            <Card style={{ display: 'inline-block'}}>
+                <Card.Content>
+
+                    <Card.Header>{show.name}</Card.Header>
+                    <Card.Description><strong>Date:</strong> {formattedDate}</Card.Description>
+                    <Card.Description><strong>Location:</strong> {show.venue},  {show.address},  {show.city}, {show.state}</Card.Description>
+                    <Card.Description><strong>Aired: </strong>{show.where_to_view}</Card.Description>
+                    <br></br>
+                    <Button basic color='black' onClick = {editShowClick}><strong>Edit Show</strong></Button>
+                    <Button basic color='black' onClick = {deleteShowClick}><strong>Delete Show</strong></Button>
+                    <br></br>
+                    <br></br>
+                    <Card.Header>Match Lineup:</Card.Header>
+                    {show.matches.map(match => {
+                        return (
+                            <Card>
+                                <Card.Content>
+                                    <Card.Header>{match.type}</Card.Header>
+                                    <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>
+                                    <br></br>
+                                    <Card.Description><strong>Wrestlers:</strong></Card.Description>
+                                    {match.match_wrestlers.map(wrestler => {
+                                        return (
+                                        <Card.Description>{wrestler.user.name}</Card.Description>
+                                        )
+                                    })}
+                                    <Button basic color='orange'><strong>Edit Match</strong></Button>
+                                </Card.Content>
+                            </Card>
+                        )
+                    })}
+
+                </Card.Content>
+
+            </Card>
+            
+        )
 
         })
         
@@ -334,10 +352,12 @@ const [currentShow, setCurrentShow] = useState([])
             body: JSON.stringify(editedShow),
         })
         .then((r) => {
-            if (r.status === 201) {
-                return r.json().then((show) => {
-                console.log(show);
+            if (r.status === 200) {
+                return r.json().then(() => {
+                // console.log(show)
                 resetShowForm();
+                setEditingShow()
+                setEditMode(false)
                 });
             }
         });
@@ -351,6 +371,7 @@ const [currentShow, setCurrentShow] = useState([])
             setDate("");
             setWhereToView("");
         };
+        
     }
 
 
@@ -435,7 +456,7 @@ return (
 
             <br></br>
             {!editMode ? (
-                <button type="submit">Build Show!</button>
+                <button type="submit" style = {{height: "25px"}}>Build Show!</button>
             ): (<button type="button" onClick = {submitShowEdit} >Finish Editing Show</button>)}
             </Form.Group>
         </Form> 
