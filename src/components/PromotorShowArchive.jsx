@@ -26,7 +26,7 @@ function PromotorShowArchive(){
         const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
 
         return (
-            <Card>
+            <Card style={{ width: '80%' }}>
                 <Card.Content>
 
                     <Card.Header>{show.name}</Card.Header>
@@ -37,7 +37,7 @@ function PromotorShowArchive(){
                     <Card.Header>Matches:</Card.Header>
                     {show.matches.map(match => {
                         return (
-                            <Card>
+                            <Card style={{ width: '80%' }}>
                                 <Card.Content>
                                     <Card.Header>{match.type}</Card.Header>
                                     <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>

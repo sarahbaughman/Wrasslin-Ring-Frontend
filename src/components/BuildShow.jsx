@@ -6,24 +6,50 @@ import { UserContext } from '../context/UserContext';
 import ShowCard from './ShowCard'
 import {Redirect} from 'react-router-dom'
 import MatchCard from './MatchCard'
-import {Card,Form,Input} from 'semantic-ui-react'
+import {Card,Form,Input, Button} from 'semantic-ui-react'
 
 
 
 function MatchBuilder() {
     const { user } = useContext(UserContext);
+
+
     const [wrestlers, setWrestlers] = useState([]);
     const [selectedWrestlers, setSelectedWrestlers] = useState([]);
+    const [editMode, setEditMode] = useState(false)
 
 //Grabs all wrestler users
     useEffect(() => {
     fetch('/users')
         .then((r) => r.json())
         .then((data) => setWrestlers(data));
+        setEditMode(false)
     }, []);
 
+
+
+//Creates list of wrestlers with their checked boxes
+    const wrestlerLine = wrestlers.map((wrestler) => (
+        <li style = {{listStyleType: 'none'}}>
+            <FormControlLabel
+                key={wrestler.id}
+                control={
+                <Checkbox
+                    checked={selectedWrestlers.some(
+                    (selectedWrestler) => selectedWrestler.id === wrestler.id
+                    )}
+                    onChange={(event) => handleChange(event, wrestler)}
+                    value={wrestler.name}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                />
+                }
+                label={wrestler.name}
+            />
+        </li>
+    ));
+
 //Updates the selected wrestlers as their box is checked 
-    const handleChange = (event, wrestler) => {
+const handleChange = (event, wrestler) => {
     const updatedSelectedWrestlers = [...selectedWrestlers];
 
     if (event.target.checked) {
@@ -41,78 +67,9 @@ function MatchBuilder() {
     setSelectedWrestlers(updatedSelectedWrestlers);
 };
 
-//Creates list of wrestlers with their checked boxes
-const wrestlerLine = wrestlers.map((wrestler) => (
-    <li>
-    <FormControlLabel
-        key={wrestler.id}
-        control={
-        <Checkbox
-            checked={selectedWrestlers.some(
-            (selectedWrestler) => selectedWrestler.id === wrestler.id
-            )}
-            onChange={(event) => handleChange(event, wrestler)}
-            value={wrestler.name}
-            inputProps={{ 'aria-label': 'controlled' }}
-        />
-        }
-        label={wrestler.name}
-    />
-    </li>
-));
-
 // choose wrestlers stuff 
-  // __________________________________
-// match builder stuff
-   
+// __________________________________
 
-
-    // function submitMatch(event){
-    //     event.preventDefault()
-
-    //     const newMatch = {
-    //         type : matchType,
-    //         storyline: storyLine,
-    //         show_id: show.id, 
-    //     }
-
-    //     fetch('/matches', {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type" : "application/json",
-    //         },
-    //         body: JSON.stringify(newMatch),
-    //     })
-    //     .then (r => {if (r.status === 201){
-    //         r.json()
-    //     .then(newMatchData => {
-    //         setMatches(newMatchData)
-    //         resetMatchForm()
-    //         console.log(matches)
-    //     })}}
-        
-    //     )
-    // console.log("Matches Matches Matches")
-    // console.log(matches)
-
-    //     selectedWrestlers.map(wrestler => 
-    //         fetch('/matchwrestlers', {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type" : "application/json",
-    //             },
-    //             body: JSON.stringify({
-    //                 user_id : wrestler.id,
-    //                 match_id : matches.id, 
-    //             }),
-    //         })
-
-    //         .then (r => {if (r.status === 201){
-    //             r.json()
-    //         .then(newMatchWrestler => console.log(newMatchWrestler))
-    //         setSelectedWrestlers([])
-    // }}))
-    // }
 
 //Creates the match and the match wrestlers when user clicks "Create Match "
 const [matchType, setMatchType] = useState('')
@@ -154,7 +111,7 @@ const [show, setShow] = useState([])
         .then((r) => {
             if (r.status === 201) {
                 return r.json()
-            .then(newMatchData => console.log(newMatchData));
+            .then(newMatchData => setMatches(newMatchData));
         }
         })
         resetMatchForm()
@@ -213,6 +170,67 @@ const [show, setShow] = useState([])
             setWhereToView("")
         }
 
+//Current Show Card with Matches
+const [currentShow, setCurrentShow] = useState([])
+    
+    useEffect(() => {
+        if (show) {
+            fetch("/promotorupcomingshows")
+            .then((response) => {
+            if (response.ok) {
+                response.json()
+            .then(data => {
+                const filterForCurrent = data.filter(showObj => showObj.id === show.id)
+                setCurrentShow(filterForCurrent);
+            });
+            }
+            });
+        }
+    }
+    , [matches, show])
+
+    const renderCurrentShow = currentShow.map(show => {
+
+        const dateParts = show.date.split('-');
+        const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
+
+        return (
+            <Card style={{ display: 'inline-block'}}>
+                <Card.Content>
+
+                    <Card.Header>{show.name}</Card.Header>
+                    <Card.Description>{formattedDate}</Card.Description>
+                    <Card.Description><strong>Location:</strong> {show.venue},  {show.address},  {show.city}, {show.state}</Card.Description>
+                    <Card.Description><strong>Aired: </strong>{show.where_to_view}</Card.Description>
+                    <br></br>
+                    <Card.Header>Matches:</Card.Header>
+                    {show.matches.map(match => {
+                        return (
+                            <Card>
+                                <Card.Content>
+                                    <Card.Header>{match.type}</Card.Header>
+                                    <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>
+                                    <br></br>
+                                    <Card.Description><strong>Wrestlers:</strong></Card.Description>
+                                    {match.match_wrestlers.map(wrestler => {
+                                        return (
+                                        <Card.Description>{wrestler.user.name}</Card.Description>
+                                        )
+                                    })}
+                                </Card.Content>
+                            </Card>
+                        )
+                    })}
+
+                </Card.Content>
+
+            </Card>
+            
+        )
+
+    })
+
+
 
 //Upcoming Show Cards with Matches Code - COMPLETE sans CSS---------------------------------------
         const [upcomingShows, setUpcomingShows] = useState([])
@@ -225,14 +243,30 @@ const [show, setShow] = useState([])
                     response.json()
                 .then(data => {
                     setUpcomingShows(data);
+                    console.log(data)
                 });
                 }
                 });
             }
-        , []);
+        , [matches]);
+        
+        const [editingShow, setEditingShow] = useState()
 
+        console.log(editingShow)
         const renderUpcomingShows = upcomingShows.map(show => {
 
+            const editShowClick = () => {
+                setEditMode(true)
+                setShowName(show.name)
+                setVenueName(show.venue)
+                setStreetAddress(show.address)
+                setCity(show.city)
+                setState(show.city)
+                setDate(show.date)
+                setWhereToView(show.where_to_view)
+                setEditingShow(show)
+            }
+  
             const dateParts = show.date.split('-');
             const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
 
@@ -241,11 +275,14 @@ const [show, setShow] = useState([])
                     <Card.Content>
 
                         <Card.Header>{show.name}</Card.Header>
-                        <Card.Description>{formattedDate}</Card.Description>
+                        <Card.Description><strong>Date:</strong> {formattedDate}</Card.Description>
                         <Card.Description><strong>Location:</strong> {show.venue},  {show.address},  {show.city}, {show.state}</Card.Description>
                         <Card.Description><strong>Aired: </strong>{show.where_to_view}</Card.Description>
                         <br></br>
-                        <Card.Header>Matches:</Card.Header>
+                        <Button basic color='black' onClick = {editShowClick}><strong>Edit Show</strong></Button>
+                        <br></br>
+                        <br></br>
+                        <Card.Header>Match Lineup:</Card.Header>
                         {show.matches.map(match => {
                             return (
                                 <Card>
@@ -259,6 +296,7 @@ const [show, setShow] = useState([])
                                             <Card.Description>{wrestler.user.name}</Card.Description>
                                             )
                                         })}
+                                        <Button basic color='orange'><strong>Edit Match</strong></Button>
                                     </Card.Content>
                                 </Card>
                             )
@@ -273,7 +311,47 @@ const [show, setShow] = useState([])
         })
         
 // --------------------------------------------------------------------------------
+// Submit edited show information 
 
+    function submitShowEdit(event) {
+        event.preventDefault();
+
+        const editedShow = {
+            name: showName,
+            venue: venueName,
+            address: streetAddress,
+            city: city,
+            state: state,
+            date: date,
+            where_to_view: whereToView,
+        };
+
+        fetch(`/shows/${editingShow.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editedShow),
+        })
+        .then((r) => {
+            if (r.status === 201) {
+                return r.json().then((show) => {
+                console.log(show);
+                resetShowForm();
+                });
+            }
+        });
+
+        const resetShowForm = () => {
+            setShowName("");
+            setVenueName("");
+            setStreetAddress("");
+            setCity("");
+            setState("");
+            setDate("");
+            setWhereToView("");
+        };
+    }
 
 
 return (
@@ -305,13 +383,6 @@ return (
                 onChange = {(e) => setVenueName(e.target.value)}
             />
 
-            {/* <Form.Control 
-                as="textarea" 
-                placeholder="Venue Name" 
-                value = {venueName}
-                onChange = {(e) => setVenueName(e.target.value)}
-                /> */}
-            
             <br></br>
             <Form.Field 
                 control = {Input}
@@ -320,14 +391,6 @@ return (
                 value = {streetAddress}
                 onChange = {(e) => setStreetAddress(e.target.value)}
             />
-            
-
-            {/* <Form.Control 
-                as="textarea" 
-                placeholder="Venue Street Address" 
-                value = {streetAddress}
-                onChange = {(e) => setStreetAddress(e.target.value)}
-                /> */}
             
             <br></br>
 
@@ -338,13 +401,6 @@ return (
                 value = {city}
                 onChange = {(e) => setCity(e.target.value)}
             />
-
-            {/* <Form.Control 
-                as="textarea" 
-                placeholder="City" 
-                value = {city}
-                onChange = {(e) => setCity(e.target.value)}
-                /> */}
             
             <br></br>
 
@@ -357,14 +413,6 @@ return (
                 style = {{width: '80px'}}
             />
 
-            {/* <Form.Control 
-                as="textarea" 
-                placeholder="State" 
-                value = {state}
-                onChange = {(e) => setState(e.target.value)}
-                />
-            */}
-        
             <br></br>
 
             <Form.Field 
@@ -375,13 +423,6 @@ return (
                 onChange = {(e) => setDate(e.target.value)}
             />
             
-            {/* <Form.Control 
-                as="textarea" 
-                placeholder="Date (entered YYYY-M-D)" 
-                value = {date}
-                onChange = {(e) => setDate(e.target.value)}
-                /> */}
-            
             <br></br>
 
             <Form.Field 
@@ -391,18 +432,11 @@ return (
                 value = {whereToView}
                 onChange = {(e) => setWhereToView(e.target.value)}
             />
-            
-            
-            {/* <Form.Control 
-                as="textarea" 
-                placeholder="Where to View" 
-                value = {whereToView}
-                onChange = {(e) => setWhereToView(e.target.value)}
-                /> */}
-            
-            <br></br>
 
-            <button type="submit">Build Show!</button>  
+            <br></br>
+            {!editMode ? (
+                <button type="submit">Build Show!</button>
+            ): (<button type="button" onClick = {submitShowEdit} >Finish Editing Show</button>)}
             </Form.Group>
         </Form> 
     </div>
@@ -411,17 +445,8 @@ return (
 
 }
 
-    <h1>{show.name}</h1>
-        
-        
-
-
-
-    
-
     {show.length === 0 ? (null) : (
         <div>
-            <ShowCard show = {show}/>
             <h1>Match Builder</h1>
 
             <Form onSubmit = {submitMatch}>
@@ -434,13 +459,6 @@ return (
                 onChange = {(e) => setMatchType(e.target.value)}
         />
 
-        {/* <Form.Control 
-            as="textarea" 
-            placeholder="Match Type" 
-            value = {matchType}
-            onChange = {(e) => setMatchType(e.target.value)}
-            /> */}
-
             <br></br>
 
         <Form.Field 
@@ -451,14 +469,6 @@ return (
             onChange = {(e) => setStoryline(e.target.value)}
             style={{ width: '500px', height: '80px', }}
         />
-    
-        {/* <Form.Control
-            as="textarea"
-            placeholder="Storyline"
-            value = {storyLine}
-            onChange = {(e) => setStoryline(e.target.value)}
-            style={{ height: '100px' }}
-            /> */}
     
         <br></br>
     
@@ -477,13 +487,10 @@ return (
 
     {show.length === 0 ? (null): ([wrestlerLine])}
 
-    <h1>Current Show</h1>
-
-    {/* {renderCompletedMatches} Delete after figuring this out */}
-
-
+    { currentShow.length === 0 ? (null) :( <h1>Current Show</h1> ) }
+    {renderCurrentShow}
+    
     <h1>Upcoming Shows</h1>
-
 
         {renderUpcomingShows}
 
