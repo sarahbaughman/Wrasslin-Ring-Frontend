@@ -39,6 +39,7 @@ function WrestlerUpcomingShows(){
                     })}
                 
                 </Table.Cell>
+                <Table.Cell>{match.storyline}</Table.Cell>
             </Table.Row>
 
     )})
@@ -55,6 +56,7 @@ function WrestlerUpcomingShows(){
                         <Table.HeaderCell>Date</Table.HeaderCell>
                         <Table.HeaderCell>Match Type</Table.HeaderCell>
                         <Table.HeaderCell>Wrestlers</Table.HeaderCell>
+                        <Table.HeaderCell width={6}>Storyline</Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
 

@@ -16,16 +16,18 @@ function Header() {
 
 return (
     <div className="Header">
-        {/* <img style={{ textAlign: 'left', height: 150}}src = "https://www.seekpng.com/png/detail/163-1632409_boxing-ring-wrestling-ring-clip-art.png"></img> */}
-        <p  style={{ textAlign: 'center' }}>WRASSLIN' RING</p>
-        
-        {user ? 
+        <header>
+            <h1 className = 'wrasslin-ring'  style={{ textAlign: 'center' }} >WRASSLIN' RING</h1>
+            {user ? 
         (<button
             onClick  = {logoutUser}
-            style={{ float: 'right' }}
+            // style={{ float: 'right' }}
             >Logout
         </button>) 
         : null}
+        </header>
+
+       
 
         {/* darkmode button with functionality  */}
     </div>

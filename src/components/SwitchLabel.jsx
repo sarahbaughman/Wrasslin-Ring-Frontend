@@ -18,20 +18,22 @@ function SwitchLabel() {
 return (
     <div>
 
-    <h2>Are you signing up as a....</h2>
-    <FormGroup>
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Typography>Wrestler</Typography>
-      <Switch
-        checked={checked}
-        onChange={handleChange}
-        inputProps={{ 'aria-label': 'controlled' }}
-        />
-      <Typography>Promotor</Typography>
-    </Stack>
-  </FormGroup>
-  {!checked ? <WrestlerSignup/> : <PromotorSignup/>}
- 
+      <h2>Are you signing up as a....</h2>
+      
+      <FormGroup>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Typography>Wrestler</Typography>
+          <Switch
+            checked={checked}
+            onChange={handleChange}
+            inputProps={{ 'aria-label': 'controlled' }}
+            />
+          <Typography>Promotor</Typography>
+        </Stack>
+      </FormGroup>
+
+      {!checked ? <WrestlerSignup/> : <PromotorSignup/>}
+
   </div>
   );
 }

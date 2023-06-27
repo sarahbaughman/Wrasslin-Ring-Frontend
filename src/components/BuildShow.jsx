@@ -2,10 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { UserContext } from '../context/UserContext';
-import Form from 'react-bootstrap/Form';
+// import Form from 'react-bootstrap/Form';
 import ShowCard from './ShowCard'
 import {Redirect} from 'react-router-dom'
 import MatchCard from './MatchCard'
+import {Card,Form,Input} from 'semantic-ui-react'
+
 
 
 function MatchBuilder() {
@@ -180,7 +182,7 @@ const wrestlerLine = wrestlers.map((wrestler) => (
 
 // match stuff
 // __________________________
-// show stuff 
+// Creating new show form state
     const [show, setShow] = useState([])
 
     const [showName, setShowName] = useState("")
@@ -228,7 +230,8 @@ const wrestlerLine = wrestlers.map((wrestler) => (
             setDate("")
             setWhereToView("")
         }
-     
+
+
 //Completed Match Cards Code 
 
 // useEffect(() => {
@@ -244,127 +247,214 @@ const wrestlerLine = wrestlers.map((wrestler) => (
 //Filters from matches 
 //Night need to add the fetch request above back in when we get to editing shows and matches 
 
-    const filteredMatches = matches.filter(match => match.show_id === show.id)
-    console.log("Filtered Matches")
-    console.log(filteredMatches)
+
+// //Delete after figuring out
+//     const filteredMatches = matches.filter(match => match.show_id === show.id)
+//     console.log("Filtered Matches")
+//     console.log(filteredMatches)
         
-        const renderCompletedMatches = filteredMatches.map(match => (
-            <MatchCard
-                key={match.id}
-                match={match}
-            />
-        ));
+//         const renderCompletedMatches = filteredMatches.map(match => (
+//             <MatchCard
+//                 key={match.id}
+//                 match={match}
+//             />
+//         ));
         
 
 
 
 
-//Completed Show Cards Code
-        const [completedShows, setCompletedShows] = useState([])
+//Upcoming Show Cards with Matches Code - COMPLETE sans CSS---------------------------------------
+        const [upcomingShows, setUpcomingShows] = useState([])
 
         useEffect(() => {
-            if (user) {
-                fetch("/shows")
+            // if (user) {
+                fetch("/promotorupcomingshows")
                 .then((response) => {
                 if (response.ok) {
                     response.json()
                 .then(data => {
-                    setCompletedShows(data);
+                    setUpcomingShows(data);
                 });
                 }
                 });
             }
-        }, [user]);
+        , []);
 
-        const filteredShows = completedShows.filter(show => show.created_by_user_id === user.id)
+        const renderUpcomingShows = upcomingShows.map(show => {
+
+            const dateParts = show.date.split('-');
+            const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
+
+            return (
+                <Card style={{ display: 'inline-block'}}>
+                    <Card.Content>
+
+                        <Card.Header>{show.name}</Card.Header>
+                        <Card.Description>{formattedDate}</Card.Description>
+                        <Card.Description><strong>Location:</strong> {show.venue},  {show.address},  {show.city}, {show.state}</Card.Description>
+                        <Card.Description><strong>Aired: </strong>{show.where_to_view}</Card.Description>
+                        <br></br>
+                        <Card.Header>Matches:</Card.Header>
+                        {show.matches.map(match => {
+                            return (
+                                <Card>
+                                    <Card.Content>
+                                        <Card.Header>{match.type}</Card.Header>
+                                        <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>
+                                        <br></br>
+                                        <Card.Description><strong>Wrestlers:</strong></Card.Description>
+                                        {match.match_wrestlers.map(wrestler => {
+                                            return (
+                                            <Card.Description>{wrestler.user.name}</Card.Description>
+                                            )
+                                        })}
+                                    </Card.Content>
+                                </Card>
+                            )
+                        })}
+
+                    </Card.Content>
+
+                </Card>
+                
+            )
+
+        })
         
-        const renderCompletedShows = filteredShows.map(show => (
-            <ShowCard
-                key={show.id}
-                show={show}
-            />
-        ));
-        
+// --------------------------------------------------------------------------------
 
 
-// _____________________________
-    // if (!user){
-    //     return <Redirect to='/'/>
-    // }
 
 return (
-    <div>
+    <div style={{ display: 'inline-block' }}>
 
     
     {show.length === 0 ? (
         <div>
-    <h1> Show Builder</h1>
-    <form onSubmit = {submitShow}>
-        <Form.Control 
-            as="textarea" 
-            placeholder="Show Name" 
-            value = {showName}
-            onChange = {(e) => setShowName(e.target.value)}
+
+        <h1> Show Builder</h1>
+
+        <Form onSubmit = {submitShow} style = {{width: '1000px'}}>
+            <Form.Group>
+            <Form.Field 
+                control = {Input}
+                placeholder="Show Name" 
+                label = "Show Name"
+                value = {showName}
+                onChange = {(e) => setShowName(e.target.value)}
+                />
+
+            <br></br>
+
+            <Form.Field 
+                control = {Input}
+                placeholder="Venue Name" 
+                label = "Venue Name"
+                value = {venueName}
+                onChange = {(e) => setVenueName(e.target.value)}
             />
 
-        <br></br>
+            {/* <Form.Control 
+                as="textarea" 
+                placeholder="Venue Name" 
+                value = {venueName}
+                onChange = {(e) => setVenueName(e.target.value)}
+                /> */}
+            
+            <br></br>
+            <Form.Field 
+                control = {Input}
+                placeholder="Venue Street Address" 
+                label = "Venue Street Address"
+                value = {streetAddress}
+                onChange = {(e) => setStreetAddress(e.target.value)}
+            />
+            
 
-        <Form.Control 
-            as="textarea" 
-            placeholder="Venue Name" 
-            value = {venueName}
-            onChange = {(e) => setVenueName(e.target.value)}
-            />
-        
-        <br></br>
+            {/* <Form.Control 
+                as="textarea" 
+                placeholder="Venue Street Address" 
+                value = {streetAddress}
+                onChange = {(e) => setStreetAddress(e.target.value)}
+                /> */}
+            
+            <br></br>
 
-        <Form.Control 
-            as="textarea" 
-            placeholder="Venue Street Address" 
-            value = {streetAddress}
-            onChange = {(e) => setStreetAddress(e.target.value)}
+            <Form.Field 
+                control = {Input}
+                placeholder="City" 
+                label = "City"
+                value = {city}
+                onChange = {(e) => setCity(e.target.value)}
             />
-        
-        <br></br>
 
-        <Form.Control 
-            as="textarea" 
-            placeholder="City" 
-            value = {city}
-            onChange = {(e) => setCity(e.target.value)}
-            />
-        
-        <br></br>
+            {/* <Form.Control 
+                as="textarea" 
+                placeholder="City" 
+                value = {city}
+                onChange = {(e) => setCity(e.target.value)}
+                /> */}
+            
+            <br></br>
 
-        <Form.Control 
-            as="textarea" 
-            placeholder="State" 
-            value = {state}
-            onChange = {(e) => setState(e.target.value)}
+            <Form.Field 
+                control = {Input}
+                placeholder= "ex: NY"
+                label = "State" 
+                value = {state}
+                onChange = {(e) => setState(e.target.value)}
+                style = {{width: '80px'}}
             />
-        
-        <br></br>
-        
-        <Form.Control 
-            as="textarea" 
-            placeholder="Date (entered YYYY-M-D)" 
-            value = {date}
-            onChange = {(e) => setDate(e.target.value)}
-            />
-        
-        <br></br>
-        
-        <Form.Control 
-            as="textarea" 
-            placeholder="Where to View" 
-            value = {whereToView}
-            onChange = {(e) => setWhereToView(e.target.value)}
-            />
-        
-        <br></br>
 
-        <button type="submit">Build Show!</button>  
-    </form> 
+            {/* <Form.Control 
+                as="textarea" 
+                placeholder="State" 
+                value = {state}
+                onChange = {(e) => setState(e.target.value)}
+                />
+            */}
+        
+            <br></br>
+
+            <Form.Field 
+                control = {Input}
+                placeholder= "Enter as YYYY-M-D"  
+                label = "Date"
+                value = {date}
+                onChange = {(e) => setDate(e.target.value)}
+            />
+            
+            {/* <Form.Control 
+                as="textarea" 
+                placeholder="Date (entered YYYY-M-D)" 
+                value = {date}
+                onChange = {(e) => setDate(e.target.value)}
+                /> */}
+            
+            <br></br>
+
+            <Form.Field 
+                control = {Input}
+                placeholder= "Where to View" 
+                label = "Where to View" 
+                value = {whereToView}
+                onChange = {(e) => setWhereToView(e.target.value)}
+            />
+            
+            
+            {/* <Form.Control 
+                as="textarea" 
+                placeholder="Where to View" 
+                value = {whereToView}
+                onChange = {(e) => setWhereToView(e.target.value)}
+                /> */}
+            
+            <br></br>
+
+            <button type="submit">Build Show!</button>  
+            </Form.Group>
+        </Form> 
     </div>
     
     ) : (null)
@@ -380,34 +470,56 @@ return (
     
 
     {show.length === 0 ? (null) : (
-    <div>
-    <ShowCard show = {show}/>
-    <h1>Match Builder</h1>
+        <div>
+            <ShowCard show = {show}/>
+            <h1>Match Builder</h1>
 
-    <form onSubmit = {submitMatch}>
+            <Form onSubmit = {submitMatch}>
+        <Form.Group>
+        <Form.Field 
+                control = {Input}
+                placeholder= "Match Type" 
+                label = "Match Type" 
+                value = {matchType}
+                onChange = {(e) => setMatchType(e.target.value)}
+        />
 
-        <Form.Control 
+        {/* <Form.Control 
             as="textarea" 
             placeholder="Match Type" 
             value = {matchType}
             onChange = {(e) => setMatchType(e.target.value)}
-            />
+            /> */}
 
             <br></br>
+
+        <Form.Field 
+            control = {Input}
+            placeholder= "Storyline"
+            label = "Storyline"
+            value = {storyLine}
+            onChange = {(e) => setStoryline(e.target.value)}
+            style={{ width: '500px', height: '80px', }}
+        />
     
-        <Form.Control
+        {/* <Form.Control
             as="textarea"
             placeholder="Storyline"
             value = {storyLine}
             onChange = {(e) => setStoryline(e.target.value)}
             style={{ height: '100px' }}
-            />
+            /> */}
     
         <br></br>
     
-        <button type="submit">Build Match</button>
+        <button 
+            style={{width: '80px', height: '40x',}}
+            type="submit">
+            Build Match
+        </button>
 
-    </form>
+        </Form.Group>
+    </Form>
     
     </div>
     
@@ -415,17 +527,15 @@ return (
 
     {show.length === 0 ? (null): ([wrestlerLine])}
 
-    {renderCompletedMatches}
+    <h1>Current Show</h1>
+
+    {/* {renderCompletedMatches} Delete after figuring this out */}
 
 
     <h1>Upcoming Shows</h1>
 
 
-        {renderCompletedShows}
-
-
-
-
+        {renderUpcomingShows}
 
     </div>
 )}

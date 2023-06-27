@@ -8,7 +8,7 @@ function Dashboard(){
 
     return (
        
-        <div>
+        <div style={{ display: 'inline-block' }}>
              <h1>USER DASHBOARD</h1>
 
              

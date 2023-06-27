@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import { NavLink } from 'react-router-dom';
 import { UserContext } from './../context/UserContext'
+import './navbar.css'
 
 
 function NavBar() {
@@ -8,7 +9,7 @@ function NavBar() {
 const {user} = useContext(UserContext);
 
 return (
-    <div>
+    <div className = "nav-bar-div" style={{ display: 'inline-block' }}>
         {user && user.role === 'promotor' ? (
             <>
             <NavLink to="/dashboard" exact className="nav-link">

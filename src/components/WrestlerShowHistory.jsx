@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Table } from 'semantic-ui-react'
 import UserProvider from '../context/UserContext';
+import './wrestlershowhistory.css'
 
 function WrestlerShowHistory(){
 
@@ -45,7 +46,7 @@ function WrestlerShowHistory(){
 
 
     return (
-        <div>
+        <div className = 'show-history-div'>
             <h1> Show History </h1>
 
             <Table striped>
