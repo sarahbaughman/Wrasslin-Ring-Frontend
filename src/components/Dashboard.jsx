@@ -7,11 +7,11 @@ function Dashboard(){
     const {user} = useContext(UserContext);
 
     return (
-       
+    
         <div style={{ display: 'inline-block' }}>
-             <h1>USER DASHBOARD</h1>
+            <h1>USER DASHBOARD</h1>
 
-             
+        
             {user && user.role === 'promotor' ? (
                 <>
                     <h1> Hello {user.name}</h1>

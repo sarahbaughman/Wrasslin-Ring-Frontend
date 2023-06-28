@@ -9,21 +9,22 @@ function Header() {
 
     const { user, logoutUser} = useContext(UserContext);
 
+    const noUser = () => {
+            return <Redirect to='/'/>
+    }
 
 return (
     <div className="Header">
         <header>
             <h1 className = 'wrasslin-ring'  style={{ textAlign: 'center' }} >WRASSLIN' RING</h1>
-            {user ? 
+            {user ?
         (<button
             onClick  = {logoutUser}
             // style={{ float: 'right' }}
             >Logout
-        </button>) 
-        : null}
+        </button>)
+        : noUser()}
         </header>
-
-
 
         {/* darkmode button with functionality  */}
     </div>
