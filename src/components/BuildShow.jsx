@@ -231,7 +231,14 @@ const [currentShow, setCurrentShow] = useState([])
             setState('')
             setDate('')
             setWhereToView('')
+            setShow([])
         }
+
+        function completeShow() {
+            setShow([])
+        }
+
+        
 
         return (
             <Card style = {{width: "90%"}} >
@@ -244,10 +251,30 @@ const [currentShow, setCurrentShow] = useState([])
                     <br></br>
                     <Button basic color='black' onClick = {editShowClick}><strong>Edit Show</strong></Button>
                     <Button basic color='black' onClick = {deleteShowClick}><strong>Delete Show</strong></Button>
+                    <Button basic color='black' onClick = {completeShow}><strong>Finish Building</strong></Button>
                     <br></br>
                     <br></br>
                     <Card.Header>Matches:</Card.Header>
                     {show.matches.map(match => {
+
+                        const editMatch = () => {
+                            setEditingMatch([match])
+                            setShow([show])
+                            setEditingMatchMode(true)
+                            setMatchType(match.type)
+                            setStoryline(match.storyline)
+                            setSelectedWrestlers([])
+                        }
+
+                        function deleteMatchClick() {
+                            
+                            fetch(`/matches/${match.id}`, {
+                                method: 'DELETE',
+                            })
+                            setEditingMatch(false)
+                        }
+
+
                         return (
                             <Card style = {{width: "100%"}}>
                                 <Card.Content>
@@ -257,9 +284,14 @@ const [currentShow, setCurrentShow] = useState([])
                                     <Card.Description><strong>Wrestlers:</strong></Card.Description>
                                     {match.match_wrestlers.map(wrestler => {
                                         return (
-                                        <Card.Description>{wrestler.user.name}</Card.Description>
+                                         
+                                                <Card.Description>{wrestler.user.name}</Card.Description>
+                                                
+                                        
                                         )
                                     })}
+                                    <Button basic color='black' onClick = {editMatch}><strong>Edit Match</strong></Button>
+                                    <Button basic color='black' onClick = {deleteMatchClick}><strong>Delete Match</strong></Button>
                                 </Card.Content>
                             </Card>
                         )
@@ -295,8 +327,9 @@ const [currentShow, setCurrentShow] = useState([])
         
         
 
+    const sortedShows = upcomingShows.sort((a, b) => new Date(a.date) - new Date(b.date))
 
-    const renderUpcomingShows = upcomingShows.map(show => {
+    const renderUpcomingShows = sortedShows.map(show => {
 
         const editShowClick = () => {
             setEditMode(true)
@@ -331,6 +364,11 @@ const [currentShow, setCurrentShow] = useState([])
             setState('')
             setDate('')
             setWhereToView('')
+            setEditMode(false)
+        }
+
+        function addMoreMatches(){
+            setShow(show)
         }
 
 
@@ -349,6 +387,7 @@ const [currentShow, setCurrentShow] = useState([])
                     <br></br>
                     <Button basic color='black' onClick = {editShowClick}><strong>Edit Show</strong></Button>
                     <Button basic color='black' onClick = {deleteShowClick}><strong>Delete Show</strong></Button>
+                    <Button type="button" onClick = {addMoreMatches}> Add More Matches </Button>
                     <br></br>
                     <br></br>
                     <Card.Header>Match Lineup:</Card.Header>
@@ -364,8 +403,17 @@ const [currentShow, setCurrentShow] = useState([])
                             setMatchType(match.type)
                             setStoryline(match.storyline)
                             setSelectedWrestlers([])
-        
                         }
+
+                        function deleteMatchClick() {
+                            
+                            fetch(`/matches/${match.id}`, {
+                                method: 'DELETE',
+                            })
+                            setEditingMatch(false)
+                            setEditMode(false)
+                        }
+                
                         
                         return (
                             <Card style = {{width: "100%"}}>
@@ -380,6 +428,7 @@ const [currentShow, setCurrentShow] = useState([])
                                         )
                                     })}
                                     <Button basic color='orange' onClick = {editMatch}><strong>Edit Match</strong></Button>
+                                    <Button basic color='black' onClick = {deleteMatchClick}><strong>Delete Match</strong></Button>
                                 </Card.Content>
                             </Card>
                         )
