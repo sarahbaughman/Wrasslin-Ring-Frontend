@@ -13,6 +13,8 @@ import WrestlerShowHistory from "./WrestlerShowHistory"
 import WrestlerUpcomingShows from './WrestlerUpcomingShows'
 import PromotorShowArchive from "./PromotorShowArchive"
 import './Header.css'
+import './app.css'
+
 
 // import MatchBuilder from './BuildShow'
 
@@ -28,10 +30,13 @@ console.log(user)
 
 return (
 
-    <Router>
+    <Router style = {{display: 'inline-block'}}>
         <Header/>
         <main>
-          <NavBar/>
+          <div className = 'nav-div'>
+            <NavBar/>
+          </div>
+          <div className = 'main-div' style= {{display: 'inline-block'}}>
           <Switch>
             <Route exact path="/" component={Login}/>
             <Route exact path="/dashboard" component={Dashboard}/>
@@ -44,6 +49,7 @@ return (
             <Route exact path = "/upcomingshows" component = {WrestlerUpcomingShows}/>
             <Route exact path = "/showarchive" component = {PromotorShowArchive}/>
           </Switch>
+          </div>
         </main>
     </Router>
 

@@ -2,6 +2,7 @@ import React, {useEffect, useState, useContext} from 'react'
 import WrestlerCard from "./WrestlerCard"
 import { UserContext } from '../context/UserContext';
 import {Redirect} from 'react-router-dom'
+import './Wrestlers.css'
 
 
 function Wrestlers(){
@@ -24,9 +25,11 @@ const renderWrestlers = wrestlers.map((wrestler) =>
 console.log(wrestlers)
 if (user){
     return (
-        <div className = 'wrapper'>
-            <h1>WRESTLERS PAGE</h1>
-            {renderWrestlers}
+        <div className = 'entire-wrapper'>
+            <h1 className='custom-heading'>WRESTLERS PAGE</h1>
+            <div className = 'wrapper'>
+                {renderWrestlers}
+            </div>
         </div>
     )
 }

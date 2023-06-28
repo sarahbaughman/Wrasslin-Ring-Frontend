@@ -1,0 +1,14 @@
+.main-div{
+    outline: 9px dotted purple;
+    padding-top: 30px;
+    width: 80%;
+    margin-left: 40px;
+    margin-right: 30px;
+    height: 100%;
+}
+
+.nav-div{
+    position: -webkit-sticky;
+    position: sticky;
+    top: calc(var(--heading-height) + 0em);
+}

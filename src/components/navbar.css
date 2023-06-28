@@ -1,7 +1,13 @@
 .nav-bar-div{
     padding-top: 25px;
-    background-color: black;
-    display: inline-block;
-    /* width: 10% */
-
+    /* background-color: black; */
+    /* display: inline-block; */
+    height: 1000px;
+    outline: 5px dotted green;
+    float: left;
+    width: 10%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
 }
+

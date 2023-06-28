@@ -254,7 +254,8 @@ const [currentShow, setCurrentShow] = useState([])
     , [matches, editingShow]);
         
         
-    const [editingMatch, setEditingMatch] = useState()
+    const [editingMatch, setEditingMatch] = useState([])
+    const [editingMatchMode, setEditingMatchMode] = useState(false)
 
     const renderUpcomingShows = upcomingShows.map(show => {
 
@@ -269,7 +270,7 @@ const [currentShow, setCurrentShow] = useState([])
             setWhereToView(show.where_to_view)
             setEditingShow(show)
         }
-      
+
         
 
         function onShowDelete(id) {
@@ -285,7 +286,7 @@ const [currentShow, setCurrentShow] = useState([])
             onShowDelete(show.id)
         }
 
-
+        
         const dateParts = show.date.split('-');
         const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
 
@@ -305,9 +306,18 @@ const [currentShow, setCurrentShow] = useState([])
                     <Card.Header>Match Lineup:</Card.Header>
                     {show.matches.map(match => {
 
+                    
+
                         const editMatch = () => {
-                            setEditingMatch(match)
+                            setEditingMatch([match])
+                            setShow([show])
+                            setEditingMatchMode(true)
+                            setMatchType(match.type)
+                            setStoryline(match.storyline)
+                            setSelectedWrestlers(match.match_wrestlers)
+        
                         }
+                        console.log(editingMatch)
                         
                         return (
                             <Card style = {{width: "100%"}}>
@@ -500,12 +510,11 @@ return (
         />
     
         <br></br>
-    
-        <button 
-            style={{width: '80px', height: '40x',}}
-            type="submit">
-            Build Match
-        </button>
+
+        {editingMatchMode ? (
+                <button type="submit" style = {{height: "25px"}}>Finish Editing Match</button>): 
+                <button style={{width: '80px', height: '40x',}} type="submit"> Build Match </button>}
+        
 
         </Form.Group>
     </Form>
