@@ -31,7 +31,9 @@ console.log(user)
 return (
 
     <Router style = {{display: 'inline-block'}}>
-        <Header/>
+        <div className = 'header-div'>
+          <Header/>
+        </div>
         <main>
           <div className = 'nav-div'>
             <NavBar/>

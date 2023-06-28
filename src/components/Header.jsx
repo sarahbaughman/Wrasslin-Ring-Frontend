@@ -9,10 +9,6 @@ function Header() {
 
     const { user, logoutUser} = useContext(UserContext);
 
-    if (!user){
-            return <Redirect to='/'/>
-        }
-    
 
 return (
     <div className="Header">
@@ -27,7 +23,7 @@ return (
         : null}
         </header>
 
-       
+
 
         {/* darkmode button with functionality  */}
     </div>
