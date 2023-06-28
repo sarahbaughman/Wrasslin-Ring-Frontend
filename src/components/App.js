@@ -40,16 +40,21 @@ return (
           </div>
           <div className = 'main-div' style= {{display: 'inline-block'}}>
           <Switch>
-            <Route exact path="/" component={Login}/>
-            <Route exact path="/dashboard" component={Dashboard}/>
-            <Route exact path="/wrestlers" component={Wrestlers}/>
-            <Route exact path="/createnewaccount" component={SwitchLabel}/>
-            <Route exact path="/buildshow" component={BuildShow}/>
-            <Route exact path="/submitstoryline" component={SubmitStoryline}/>
-            <Route exact path = "/storylines" component = {Storylines} />
-            <Route exact path = "/showhistory" component = {WrestlerShowHistory} />
-            <Route exact path = "/upcomingshows" component = {WrestlerUpcomingShows}/>
-            <Route exact path = "/showarchive" component = {PromotorShowArchive}/>
+            
+        
+              <Route exact path="/" component={Login}/> 
+              <Route exact path="/dashboard" component={Dashboard}/>
+              <Route exact path="/wrestlers" component={Wrestlers}/>
+              <Route exact path="/createnewaccount" component={SwitchLabel}/>
+              <Route exact path="/buildshow" component={BuildShow}/>
+              <Route exact path="/submitstoryline" component={SubmitStoryline}/>
+              <Route exact path = "/storylines" component = {Storylines} />
+              <Route exact path = "/showhistory" component = {WrestlerShowHistory} />
+              <Route exact path = "/upcomingshows" component = {WrestlerUpcomingShows}/>
+              <Route exact path = "/showarchive" component = {PromotorShowArchive}/> 
+            
+          
+          
           </Switch>
           </div>
         </main>
