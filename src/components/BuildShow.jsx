@@ -7,6 +7,7 @@ import { UserContext } from '../context/UserContext';
 // import {Redirect} from 'react-router-dom'
 // import MatchCard from './MatchCard'
 import {Card,Form,Input, Button} from 'semantic-ui-react'
+import './buildshow.css'
 
 
 
