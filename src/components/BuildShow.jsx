@@ -20,6 +20,9 @@ function MatchBuilder() {
 
     const [editingShow, setEditingShow] = useState()
 
+    const [editingMatch, setEditingMatch] = useState([])
+    const [editingMatchMode, setEditingMatchMode] = useState(false)
+
 
 //Grabs all wrestler users
     useEffect(() => {
@@ -251,11 +254,10 @@ const [currentShow, setCurrentShow] = useState([])
             }
             });
         }
-    , [matches, editingShow]);
+    , [matches, editingShow, editingMatch]);
         
         
-    const [editingMatch, setEditingMatch] = useState([])
-    const [editingMatchMode, setEditingMatchMode] = useState(false)
+
 
     const renderUpcomingShows = upcomingShows.map(show => {
 
@@ -269,6 +271,8 @@ const [currentShow, setCurrentShow] = useState([])
             setDate(show.date)
             setWhereToView(show.where_to_view)
             setEditingShow(show)
+            setShow([])
+            setCurrentShow([])
         }
 
         
@@ -305,6 +309,7 @@ const [currentShow, setCurrentShow] = useState([])
                     <br></br>
                     <Card.Header>Match Lineup:</Card.Header>
                     {show.matches.map(match => {
+                        console.log(match)
 
                     
 
@@ -314,10 +319,9 @@ const [currentShow, setCurrentShow] = useState([])
                             setEditingMatchMode(true)
                             setMatchType(match.type)
                             setStoryline(match.storyline)
-                            setSelectedWrestlers(match.match_wrestlers)
+                            setSelectedWrestlers([])
         
                         }
-                        console.log(editingMatch)
                         
                         return (
                             <Card style = {{width: "100%"}}>
@@ -345,7 +349,6 @@ const [currentShow, setCurrentShow] = useState([])
 
         })
         
-        console.log(editingMatch)
 // --------------------------------------------------------------------------------
 // Submit edited show information 
 
@@ -392,6 +395,49 @@ const [currentShow, setCurrentShow] = useState([])
         
     }
 
+// ---------------------------------------
+    console.log(selectedWrestlers)
+    console.log(editingMatch)
+    
+    function submitMatchEdit(event) {
+        event.preventDefault();
+
+        const wrestlersArr = selectedWrestlers.map((wrestler) => {
+            return {
+                user_id: wrestler.id
+            }
+        })
+
+        const editedMatch = {
+            match : {
+                type: matchType,
+                storyline: storyLine,
+            },
+        
+            wrestlers: wrestlersArr
+        }
+
+        fetch(`/matches/${editingMatch[0].id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(editedMatch),
+        })
+        .then((r) => {
+            if (r.status === 200) {
+                return r.json().then(() => {
+                    setMatchType("");
+                    setStoryline("");
+                    setSelectedWrestlers([])
+                    resetMatchForm();
+                    setEditingMatch([])
+                    setEditingMatchMode(false)
+                    setShow([])
+                });
+            }
+        });
+    }
 
 return (
     <div style={{ display: 'inline-block' }}>
@@ -512,7 +558,7 @@ return (
         <br></br>
 
         {editingMatchMode ? (
-                <button type="submit" style = {{height: "25px"}}>Finish Editing Match</button>): 
+                <button type="button" onClick = {submitMatchEdit} style = {{height: "25px"}}>Finish Editing Match</button>): 
                 <button style={{width: '80px', height: '40x',}} type="submit"> Build Match </button>}
         
 
