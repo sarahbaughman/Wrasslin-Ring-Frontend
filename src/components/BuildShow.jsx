@@ -200,6 +200,39 @@ const [currentShow, setCurrentShow] = useState([])
         const dateParts = show.date.split('-');
         const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
 
+        const editShowClick = () => {
+            setEditMode(true)
+            setShowName(show.name)
+            setVenueName(show.venue)
+            setStreetAddress(show.address)
+            setCity(show.city)
+            setState(show.city)
+            setDate(show.date)
+            setWhereToView(show.where_to_view)
+            setEditingShow(show)
+            setShow([])
+            setCurrentShow([])
+        }
+
+        function onShowDelete(id) {
+            const updatedUpcomingShows = upcomingShows.filter((show) => show.id !== id);
+            setUpcomingShows(updatedUpcomingShows);
+        }
+
+        function deleteShowClick() {
+            
+            fetch(`/shows/${show.id}`, {
+                method: 'DELETE',
+            })
+            onShowDelete(show.id)
+            setShowName('')
+            setVenueName('')
+            setCity('')
+            setState('')
+            setDate('')
+            setWhereToView('')
+        }
+
         return (
             <Card style = {{width: "90%"}} >
                 <Card.Content>
@@ -208,6 +241,10 @@ const [currentShow, setCurrentShow] = useState([])
                     <Card.Description>{formattedDate}</Card.Description>
                     <Card.Description><strong>Location:</strong> {show.venue},  {show.address},  {show.city}, {show.state}</Card.Description>
                     <Card.Description><strong>Aired: </strong>{show.where_to_view}</Card.Description>
+                    <br></br>
+                    <Button basic color='black' onClick = {editShowClick}><strong>Edit Show</strong></Button>
+                    <Button basic color='black' onClick = {deleteShowClick}><strong>Delete Show</strong></Button>
+                    <br></br>
                     <br></br>
                     <Card.Header>Matches:</Card.Header>
                     {show.matches.map(match => {
@@ -288,7 +325,14 @@ const [currentShow, setCurrentShow] = useState([])
                 method: 'DELETE',
             })
             onShowDelete(show.id)
+            setShowName('')
+            setVenueName('')
+            setCity('')
+            setState('')
+            setDate('')
+            setWhereToView('')
         }
+
 
         
         const dateParts = show.date.split('-');
