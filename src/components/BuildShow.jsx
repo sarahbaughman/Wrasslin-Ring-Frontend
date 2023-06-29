@@ -378,7 +378,7 @@ const [currentShow, setCurrentShow] = useState([])
         const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
 
         return (
-            <Card style = {{width: "90%"}}>
+            <Card className = 'upcoming-card' style = {{width: "90%",  margin: 'auto', marginTop: '30px'}}>
                 <Card.Content>
 
                     <Card.Header>{show.name}</Card.Header>
@@ -386,9 +386,9 @@ const [currentShow, setCurrentShow] = useState([])
                     <Card.Description><strong>Location:</strong> {show.venue},  {show.address},  {show.city}, {show.state}</Card.Description>
                     <Card.Description><strong>Aired: </strong>{show.where_to_view}</Card.Description>
                     <br></br>
-                    <Button basic color='black' onClick = {editShowClick}><strong>Edit Show</strong></Button>
-                    <Button basic color='black' onClick = {deleteShowClick}><strong>Delete Show</strong></Button>
-                    <Button basic color='black' type="button" onClick = {addMoreMatches}> Add More Matches </Button>
+                    <Button style = {{backgroundColor: 'black', color: 'white'}}  onClick = {editShowClick}><strong>Edit Show</strong></Button>
+                    <Button style = {{backgroundColor: 'black', color: 'white'}} onClick = {deleteShowClick}><strong>Delete Show</strong></Button>
+                    <Button style = {{width: '120px', backgroundColor: 'black', color: 'white'}} type="button" onClick = {addMoreMatches}> Add More Matches </Button>
                     <br></br>
                     <br></br>
                     <Card.Header>Match Lineup:</Card.Header>
@@ -428,8 +428,8 @@ const [currentShow, setCurrentShow] = useState([])
                                         <Card.Description>{wrestler.user.name}</Card.Description>
                                         )
                                     })}
-                                    <Button basic color='black' style = {{backgroundColor: 'black'}}onClick = {editMatch}><strong>Edit Match</strong></Button>
-                                    <Button basic color='black' onClick = {deleteMatchClick}><strong>Delete Match</strong></Button>
+                                    <Button style = {{backgroundColor: 'black', color: 'white'}} onClick = {editMatch}><strong>Edit Match</strong></Button>
+                                    <Button style = {{backgroundColor: 'black', color: 'white', width: '115px'}}  onClick = {deleteMatchClick}><strong>Delete Match</strong></Button>
                                 </Card.Content>
                             </Card>
                         )
@@ -538,12 +538,12 @@ return (
 
     
     {show.length === 0 ? (
-        <div>
+        <div >
 
-        <h1> Show Builder</h1>
+        <h1 className = 'custom-heading'> Show Builder</h1>
 
-        <Form onSubmit = {submitShow} style = {{width: '1000px'}}>
-            <Form.Group>
+        <Form onSubmit = {submitShow} style = {{width: '1000px', color: 'black', margin: 'auto', float: 'center'}}>
+            <Form.Group >
             <Form.Field 
                 control = {Input}
                 placeholder="Show Name" 
@@ -614,7 +614,7 @@ return (
 
             <br></br>
             {!editMode ? (
-                <button className = 'button' type="button">Build Show!</button>
+                <Button className = 'button' style = {{backgroundColor: '#f7b334', color: 'black', marginTop: '22px', height: '29px', width: '90px'}}  type="button">Build Show!</Button>
                 ): (<Button basic color='black' type="button" onClick = {submitShowEdit} >Finish Editing Show</Button>)}
             </Form.Group>
         </Form> 
@@ -626,7 +626,7 @@ return (
 {/* && editingMatch.length === 0  */}
     {show.length === 0 ? (null) : (
         <div>
-            <h1>Match Builder</h1>
+            <h1 className = 'custom-heading'>Match Builder</h1>
 
             <Form onSubmit = {submitMatch}>
         <Form.Group>
@@ -668,7 +668,7 @@ return (
     { currentShow.length === 0 ? (null) :( <h1>Current Show</h1> ) }
     {renderCurrentShow}
     
-    <h1>Upcoming Shows</h1>
+    <h1 className = 'custom-heading'>Upcoming Shows</h1>
 
         {renderUpcomingShows}
 

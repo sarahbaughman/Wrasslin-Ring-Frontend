@@ -1,16 +1,25 @@
-.button{
-    background-color:  #f7b334;
-    color: black;
+/* .button{
     height: 30px;
     font-size: 12px;
     border: solid;
-    border-radius: 8px;
-    margin-top: 20px;
-    width: 90px;
-}
+    /* margin-top: 80px; */
+    /* width: 90px; */
+
 
 .show-form{
     align-items: center;
     color: white;
-    margin: auto;
+    /* margin: auto; */
+    text-align: center;
+    outline: 10px solid blue;
 }
+
+.custom-heading {
+    margin: auto;
+    text-align: center; 
+    color: white;
+    font-size: 25px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
