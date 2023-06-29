@@ -31,6 +31,7 @@ console.log(user)
 return (
 
     <Router style = {{display: 'inline-block'}}>
+        <div className = 'entire-page-div'>
         <div className = 'header-div'>
           <Header/>
         </div>
@@ -58,6 +59,7 @@ return (
           </Switch>
           </div>
         </main>
+        </div>
     </Router>
 
 )

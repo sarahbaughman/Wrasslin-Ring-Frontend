@@ -68,7 +68,7 @@ function Login() {
 return (
   <div className = 'sign-in-div'>
 
-    <ThemeProvider theme={defaultTheme}>
+    {/* <ThemeProvider theme={defaultTheme}> */}
         <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -94,6 +94,7 @@ return (
               onChange = {(e) => setUsername(e.target.value)}
               autoComplete="username"
               autoFocus
+              className = 'text-field'
             />
             <TextField
               margin="normal"
@@ -106,6 +107,7 @@ return (
               value = {password}
               onChange={(e) => setPassword(e.target.value)}
               autoComplete="current-password"
+              className = 'text-field'
             />
             {/* <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -121,9 +123,6 @@ return (
             </Button>
             <Grid container>
               <Grid item xs>
-                {/* <Link href="#" variant="body2">
-                  Forgot password?
-                </Link> */}
               </Grid>
               <Grid item>
                 <Link to='/createnewaccount' href="#" variant="body2">
@@ -135,7 +134,7 @@ return (
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
-    </ThemeProvider>
+    {/* </ThemeProvider> */}
     
     </div>
   );

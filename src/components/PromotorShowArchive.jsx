@@ -66,10 +66,10 @@ function PromotorShowArchive(){
 
 
     return (
-        <>
-        <h1>Show Archive</h1>
-        {renderArchivedShows}
-        </>
+        <div style={{ height: '800px'}}>
+            <h1>Show Archive</h1>
+            {renderArchivedShows}
+        </div>
     )
 
 }

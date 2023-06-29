@@ -26,7 +26,7 @@ console.log(wrestlers)
 if (user){
     return (
         <div className = 'entire-wrapper'>
-            <h1 className='custom-heading'>WRESTLERS PAGE</h1>
+            <h1 className='custom-heading'>Meet The Talent</h1>
             <div className = 'wrapper'>
                 {renderWrestlers}
             </div>

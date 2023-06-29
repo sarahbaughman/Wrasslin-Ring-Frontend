@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Table } from 'semantic-ui-react'
 import UserProvider from '../context/UserContext';
+import './wrestlerupcomingshows.css'
 
 function WrestlerUpcomingShows(){
 
@@ -26,7 +27,7 @@ function WrestlerUpcomingShows(){
         const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
 
         return (
-            <Table.Row>
+            <Table.Row >
                 <Table.Cell>{match.show.name}</Table.Cell>
                 <Table.Cell>{formattedDate}</Table.Cell>
                 <Table.Cell>{match.type}</Table.Cell>
@@ -46,21 +47,21 @@ function WrestlerUpcomingShows(){
 
 
     return (
-        <div>
-            <h1> Upcoming Shows </h1>
+        <div className = 'upcoming-shows-div'>
+            <h1 className = 'heading'> Your Upcoming Shows </h1>
 
             <Table striped>
-                <Table.Header>
-                    <Table.Row>
+                <Table.Header >
+                    <Table.Row >
                         <Table.HeaderCell>Card</Table.HeaderCell>
                         <Table.HeaderCell>Date</Table.HeaderCell>
                         <Table.HeaderCell>Match Type</Table.HeaderCell>
                         <Table.HeaderCell>Wrestlers</Table.HeaderCell>
                         <Table.HeaderCell width={6}>Storyline</Table.HeaderCell>
-                    </Table.Row>
+                    </Table.Row >
                 </Table.Header>
 
-                <Table.Body>
+                <Table.Body className = 'table'>
 
                     {renderTableCells}
                 

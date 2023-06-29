@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import { SettingsBackupRestoreRounded } from "@mui/icons-material";
 import { UserContext } from '../context/UserContext';
 import {Redirect} from 'react-router-dom'
+import './switchlabel.css'
 
 
 
@@ -72,11 +73,11 @@ function PromotorSignup() {
     return (
 
         <ThemeProvider theme={defaultTheme}>
-        <Container component="main" maxWidth="xs">
+        <Container className = 'promotor-container'component="main" maxWidth="xs">
             <CssBaseline />
             <Box
             sx={{
-                marginTop: 8,
+                marginBottom: 6,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -96,6 +97,7 @@ function PromotorSignup() {
                     id="name"
                     label="Promotor Name"
                     autoFocus
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -107,6 +109,7 @@ function PromotorSignup() {
                     label="Username"
                     name="username"
                     autoComplete="username"
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -118,6 +121,7 @@ function PromotorSignup() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    className = 'text-field'
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -129,6 +133,7 @@ function PromotorSignup() {
                     type="password"
                     id="password"
                     autoComplete="new-password"
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -141,6 +146,7 @@ function PromotorSignup() {
                     type="phone"
                     id="phone"
                     autoComplete="phone"
+                    className = 'text-field'
                     />
                 </Grid>
 

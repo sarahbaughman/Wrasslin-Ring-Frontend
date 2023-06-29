@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import Figure from 'react-bootstrap/Figure'
 import { UserContext } from './../context/UserContext';
 import { Card, Button, Image } from 'semantic-ui-react'
+import './wrestlercard.css'
 
 
 function WrestlerCard({wrestler}) {
@@ -12,12 +13,14 @@ function WrestlerCard({wrestler}) {
 
   return (
 
-
-    <Card>
-      <Card.Content>
+    <div  className = 'card'>
+    <Card 
+      style = {{marginTop: '15px'}}
+      >
+      <Card.Content >
         <Image
-          floated='right'
-          size='large'
+          floated='center'
+          size='medium'
           src={image}
         />
         <Card.Header>{name}</Card.Header>
@@ -25,7 +28,8 @@ function WrestlerCard({wrestler}) {
         <Card.Description> <strong>Weight: {weight}</strong></Card.Description>
         <Card.Description> <strong>Regions: {regions}</strong></Card.Description>
       </Card.Content> 
-    </Card>
+    </Card >
+    </div>
   );
   
 }

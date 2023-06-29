@@ -1,5 +1,9 @@
+.entire-page-div {
+    background-color: black;
+    text-align:center;
+}
 .main-div{
-    outline: 9px dotted purple;
+    /* outline: 9px dotted purple; */
     padding-top: 30px;
     width: 80%;
     margin-left: 40px;
@@ -12,3 +16,11 @@
     position: sticky;
     top: calc(var(--heading-height) + 0em);
 }
+
+a {
+    color: #FFF;
+    }
+
+a:hover {
+    color: black
+    }

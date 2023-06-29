@@ -47,7 +47,7 @@ function WrestlerShowHistory(){
 
     return (
         <div className = 'show-history-div'>
-            <h1> Show History </h1>
+            <h1 className = 'heading'> Show History </h1>
 
             <Table striped>
                 <Table.Header>
@@ -59,7 +59,7 @@ function WrestlerShowHistory(){
                     </Table.Row>
                 </Table.Header>
 
-                <Table.Body>
+                <Table.Body className = 'table'>
 
                     {renderTableCells}
                 

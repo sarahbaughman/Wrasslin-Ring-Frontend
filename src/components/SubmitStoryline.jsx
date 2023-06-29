@@ -78,7 +78,7 @@ function SubmitStoryline(){
             .then((r) => r.json())
             .then((data) => setMatchData(data));
         }, [])
-  
+
 
 //Updates the selected wrestlers as their box is checked 
     const handleChange = (event, wrestler) => {
@@ -164,7 +164,7 @@ function SubmitStoryline(){
     }
 
 
-    const [mychecked, setMychecked] = useState(false)
+
     return (
         <div>
 

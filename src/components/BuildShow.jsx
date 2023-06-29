@@ -614,8 +614,8 @@ return (
 
             <br></br>
             {!editMode ? (
-                <button type="submit" style = {{height: "25px"}}>Build Show!</button>
-            ): (<button type="button" onClick = {submitShowEdit} >Finish Editing Show</button>)}
+                <Button type="button">Build Show!</Button>
+                ): (<Button type="button" onClick = {submitShowEdit} >Finish Editing Show</Button>)}
             </Form.Group>
         </Form> 
     </div>

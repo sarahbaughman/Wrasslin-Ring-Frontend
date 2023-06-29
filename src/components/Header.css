@@ -55,7 +55,7 @@ header::before {
     padding: 10px;
     padding-left: 30px;
 	text-shadow: .022em .022em .022em #111;
-	color: #fff; 
+	color: #f7b334; 
     /* style={{ textAlign: 'center' }}  */
 }  
 
@@ -67,5 +67,5 @@ body {
 	/* font-family: "Roboto", Arial, sans-serif; */
 	/* min-height: 100vh; */
 	/* background-color: #101010; */
-    background-color: aquamarine;
+    background-color: black
 }

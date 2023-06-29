@@ -16,6 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 // import { SettingsBackupRestoreRounded } from "@mui/icons-material";
 import { UserContext } from '../context/UserContext';
 import {Redirect} from 'react-router-dom'
+import './switchlabel.css'
 
 
 
@@ -78,11 +79,11 @@ function WrestlerSignup() {
     return (
 
         <ThemeProvider theme={defaultTheme}>
-        <Container component="main" maxWidth="xs">
+        <Container className = 'wrestler-container' component="main" maxWidth="xs">
             <CssBaseline />
             <Box
             sx={{
-                marginTop: 8,
+                marginTop: 0,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -103,6 +104,7 @@ function WrestlerSignup() {
                     id="name"
                     label="Wrestler Name"
                     autoFocus
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -114,6 +116,7 @@ function WrestlerSignup() {
                     label="Username"
                     name="username"
                     autoComplete="username"
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -125,6 +128,7 @@ function WrestlerSignup() {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
+                    className = 'text-field'
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -136,6 +140,7 @@ function WrestlerSignup() {
                     type="password"
                     id="password"
                     autoComplete="new-password"
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -148,6 +153,7 @@ function WrestlerSignup() {
                     type="phone"
                     id="phone"
                     autoComplete="phone"
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -160,6 +166,7 @@ function WrestlerSignup() {
                     type="instagram"
                     id="instagram"
                     autoComplete="instagram"
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -172,6 +179,7 @@ function WrestlerSignup() {
                     type="regions"
                     id="regions"
                     autoComplete="new-password"
+                    className = 'text-field'
                     />
                 </Grid>
             
@@ -184,6 +192,7 @@ function WrestlerSignup() {
                     type="weight"
                     id="weight"
                     autoComplete="new-password"
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -196,6 +205,7 @@ function WrestlerSignup() {
                     type=""
                     id="image"
                     autoComplete="image"
+                    className = 'text-field'
                     />
                 </Grid>
 
@@ -208,6 +218,7 @@ function WrestlerSignup() {
                     type=""
                     id="payment"
                     autoComplete="payment"
+                    className = 'text-field'
                     />
                 </Grid>
 
