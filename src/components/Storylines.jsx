@@ -25,7 +25,7 @@ function Storylines(){
         return (
             <div>
             
-            <Card>
+            <Card style = {{marginTop: '30px'}}>
                 <Card.Content style = {{backgroundColor:'#f7b334'}}>
 
                     <Card.Header>{story.type}</Card.Header>

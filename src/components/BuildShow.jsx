@@ -630,7 +630,7 @@ return (
             <h1 className = 'custom-heading'>Match Builder</h1>
 
             <Form onSubmit = {submitMatch}>
-        <Form.Group>
+        <Form.Group style = {{float: "center", justifyContent : "center", margin: 'auto'}}>
         <Form.Field 
                 control = {Input}
                 placeholder= "Match Type" 
