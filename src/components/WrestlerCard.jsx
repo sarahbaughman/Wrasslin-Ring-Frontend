@@ -17,7 +17,7 @@ function WrestlerCard({wrestler}) {
     <Card 
       style = {{marginTop: '15px'}}
       >
-      <Card.Content >
+      <Card.Content style = {{backgroundColor:'#f7b334'}}>
         <Image
           floated='center'
           size='medium'

@@ -388,7 +388,7 @@ const [currentShow, setCurrentShow] = useState([])
                     <br></br>
                     <Button basic color='black' onClick = {editShowClick}><strong>Edit Show</strong></Button>
                     <Button basic color='black' onClick = {deleteShowClick}><strong>Delete Show</strong></Button>
-                    <Button type="button" onClick = {addMoreMatches}> Add More Matches </Button>
+                    <Button basic color='black' type="button" onClick = {addMoreMatches}> Add More Matches </Button>
                     <br></br>
                     <br></br>
                     <Card.Header>Match Lineup:</Card.Header>
