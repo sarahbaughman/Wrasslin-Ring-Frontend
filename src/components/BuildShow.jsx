@@ -48,6 +48,7 @@ function MatchBuilder() {
                     onChange={(event) => handleChange(event, wrestler)}
                     value={wrestler.name}
                     inputProps={{ 'aria-label': 'controlled' }}
+                    style = {{color: 'white'}}
                 />
                 }
                 label={wrestler.name}
@@ -242,17 +243,17 @@ const [currentShow, setCurrentShow] = useState([])
         
 
         return (
-            <Card style = {{width: "90%"}} >
-                <Card.Content >
+            <Card style = {{width: "90%",  margin: 'auto', marginTop: '30px'}} >
+                <Card.Content style = {{color: 'black'}} >
 
                     <Card.Header>{show.name}</Card.Header>
                     <Card.Description>{formattedDate}</Card.Description>
                     <Card.Description><strong>Location:</strong> {show.venue},  {show.address},  {show.city}, {show.state}</Card.Description>
-                    <Card.Description><strong>Aired: </strong>{show.where_to_view}</Card.Description>
+                    <Card.Description><strong>Where To View: </strong>{show.where_to_view}</Card.Description>
                     <br></br>
-                    <Button basic color='black' onClick = {editShowClick}><strong>Edit Show</strong></Button>
-                    <Button basic color='black' onClick = {deleteShowClick}><strong>Delete Show</strong></Button>
-                    <Button basic color='black' onClick = {completeShow}><strong>Finish Building</strong></Button>
+                    <Button style = {{backgroundColor: 'black', color: 'white'}} onClick = {editShowClick}><strong>Edit Show</strong></Button>
+                    <Button style = {{backgroundColor: 'black', color: 'white'}} onClick = {deleteShowClick}><strong>Delete Show</strong></Button>
+                    <Button style = {{backgroundColor: 'black', color: 'white'}} onClick = {completeShow}><strong>Finish Building</strong></Button>
                     <br></br>
                     <br></br>
                     <Card.Header>Matches:</Card.Header>
@@ -277,8 +278,8 @@ const [currentShow, setCurrentShow] = useState([])
 
 
                         return (
-                            <Card style = {{width: "100%"}}>
-                                <Card.Content>
+                            <Card style = {{marginTop: '5px', width: '100%', border: '3px double black'}}>
+                                <Card.Content style = {{backgroundColor:'#f7b334', color: 'black'}}>
                                     <Card.Header>{match.type}</Card.Header>
                                     <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>
                                     <br></br>
@@ -291,8 +292,8 @@ const [currentShow, setCurrentShow] = useState([])
                                         
                                         )
                                     })}
-                                    <Button basic color='black' onClick = {editMatch}><strong>Edit Match</strong></Button>
-                                    <Button basic color='black' onClick = {deleteMatchClick}><strong>Delete Match</strong></Button>
+                                    <Button style = {{backgroundColor: 'black', color: 'white'}} onClick = {editMatch}><strong>Edit Match</strong></Button>
+                                    <Button style = {{backgroundColor: 'black', color: 'white'}} onClick = {deleteMatchClick}><strong>Delete Match</strong></Button>
                                 </Card.Content>
                             </Card>
                         )
@@ -614,7 +615,7 @@ return (
 
             <br></br>
             {!editMode ? (
-                <Button className = 'button' style = {{backgroundColor: '#f7b334', color: 'black', marginTop: '22px', height: '29px', width: '90px'}}  type="button">Build Show!</Button>
+                <Button className = 'button' type = 'submit' style = {{backgroundColor: '#f7b334', color: 'black', marginTop: '22px', height: '29px', width: '90px'}}>Build Show!</Button>
                 ): (<Button basic color='black' type="button" onClick = {submitShowEdit} >Finish Editing Show</Button>)}
             </Form.Group>
         </Form> 
@@ -636,6 +637,7 @@ return (
                 label = "Match Type" 
                 value = {matchType}
                 onChange = {(e) => setMatchType(e.target.value)}
+                style={{ width: '200px', height: '30px', }}
         />
 
             <br></br>
@@ -646,14 +648,15 @@ return (
             label = "Storyline"
             value = {storyLine}
             onChange = {(e) => setStoryline(e.target.value)}
-            style={{ width: '500px', height: '80px', }}
+            style={{ width: '500px', height: '30px', }}
+
         />
     
         <br></br>
 
         {editingMatchMode ? (
-                <button type="button" onClick = {submitMatchEdit} style = {{height: "25px"}}>Finish Editing Match</button>): 
-                <button style={{width: '80px', height: '40x',}} type="submit"> Build Match </button>}
+                <Button type="button" onClick = {submitMatchEdit} style = {{height: "25px", backgroundColor: '#f7b334', color: 'black', marginTop: '22px', height: '29px', width: '150px'}}>Finish Editing Match</Button>): 
+                <Button style= {{backgroundColor: '#f7b334', color: 'black', marginTop: '22px', height: '29px', width: '90px'}} type="submit"> Build Match </Button>}
         
 
         </Form.Group>

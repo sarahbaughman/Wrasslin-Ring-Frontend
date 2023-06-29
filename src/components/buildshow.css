@@ -11,7 +11,7 @@
     color: white;
     /* margin: auto; */
     text-align: center;
-    outline: 10px solid blue;
+    /* width: 80%; */
 }
 
 .custom-heading {
@@ -21,5 +21,16 @@
     font-size: 25px;
     margin-bottom: 20px;
     margin-top: 40px;
+}
+.storyline-field{
+    word-wrap: break-word;
+    word-break: break-all;
+    /* height: 80px; */
+}
+
+.ui.form .field>label {
+    color: white;
+    text-align: left;
+    font-size: 12px;
 }
 

@@ -1,11 +1,10 @@
-.entire-wrapper {
+.card-div{
     display: inline-block;
     /* grid-template-columns: repeat(3, 1fr); */
     margin: auto;
-    outline: 9px dotted black;
+    outline: 9px dotted ;
     width: 100%;
     margin-top: 0px;
-    /* grid-auto-rows: 100px; */
 }
 
 .custom-heading {
@@ -15,4 +14,3 @@
     font-size: 50px;
     margin-bottom: 20px;
 }
-

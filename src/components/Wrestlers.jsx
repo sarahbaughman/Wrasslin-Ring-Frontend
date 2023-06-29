@@ -22,7 +22,7 @@ const renderWrestlers = wrestlers.map((wrestler) =>
         wrestler = {wrestler}
     />
 )
-console.log(wrestlers)
+
 if (user){
     return (
         <div className = 'entire-wrapper'>

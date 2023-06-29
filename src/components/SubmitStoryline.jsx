@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react'
-import Form from 'react-bootstrap/Form';
+// import Form from 'react-bootstrap/Form';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { UserContext } from './../context/UserContext';
-import { Card, Button } from 'semantic-ui-react'
+import { Card, Button, Input, Form} from 'semantic-ui-react'
+
 
 
 function SubmitStoryline(){
@@ -46,23 +47,24 @@ function SubmitStoryline(){
         // }
 
         return (
-
-            <Card>
+            <div>
+            <Card className = 'card-div' style = {{backgroundColor: '#f7b334', margin: 'auto', display: 'inline-block', marginLeft: '10px', marginRight: '10px'}}>
                 <Card.Content>
 
-                    <Card.Header>{match.type}</Card.Header>
+                    <Card.Header style = {{color : 'black'}}>{match.type}</Card.Header>
                     <Card.Description>{match.storyline}</Card.Description>
                     <br></br>
-                    <Card.Description> <strong> Wrestlers: </strong> </Card.Description>
+                    <Card.Description style = {{color : 'black'}}> <strong> Wrestlers: </strong> </Card.Description>
                     <br></br>
-                    <Card.Description>{match.proposed_match_wrestlers.map(wrestler => <li style = {{listStyleType: 'none'}}>{wrestler.user.name}</li>)}</Card.Description>
-                    <br></br>
+                    <Card.Description >{match.proposed_match_wrestlers.map(wrestler => <li style = {{listStyleType: 'none'}}>{wrestler.user.name}</li>)}</Card.Description>
+                    {/* <br></br>
                     <Button basic color='orange'> Edit Match Idea </Button>
                     <br></br><br></br>
-                    <Button basic color='black'> Delete Match Idea </Button>
+                    <Button basic color='black'> Delete Match Idea </Button> */}
 
                 </Card.Content>
             </Card>
+            </div>
     )})
 
 
@@ -101,7 +103,7 @@ function SubmitStoryline(){
 
     // Creates list of wrestler names with the checked box
     const wrestlerLine = wrestlers.map((wrestler) => (
-        <li style = {{listStyleType: 'none'}}>
+        <li style = {{listStyleType: 'none', color: 'white'}}>
         <FormControlLabel
             key={wrestler.id}
             control={
@@ -112,6 +114,7 @@ function SubmitStoryline(){
                     onChange={(event) => handleChange(event, wrestler)}
                     value={wrestler.name}
                     inputProps={{ 'aria-label': 'controlled' }}
+                    style = {{color: 'white'}}
                 />
             }
             label={wrestler.name}
@@ -166,35 +169,41 @@ function SubmitStoryline(){
 
 
     return (
-        <div>
+        <div style = {{border :"solid 2px purple", display: 'inline-block', color: 'white'}}>
 
-            <h1> Storyline Ideas</h1>
+            <h1 className= 'custom-heading'> Storyline Ideas</h1>
 
-            <form onSubmit = {submitProposedMatch}>
-                <Form.Control 
-                    as="textarea" 
-                    placeholder="Match Type" 
+            <Form onSubmit = {submitProposedMatch} style = {{margin: 'auto', justify: 'center', outline: 'blue 2px solid'}}>
+            <Form.Group style = {{margin: 'auto', justify:}}>
+                <Form.Field  
+                    control = {Input}
+                    placeholder = "Match Type" 
+                    label = "Match Type" 
                     value = {subMatchType}
                     onChange = {(e) => setSubMatchType(e.target.value)}
+                    style = {{width: '200px'}}
                     />
 
                 <br></br>
+
     
-                <Form.Control
-                    as="textarea"
+                <Form.Field 
+                    control = {Input}
                     placeholder="Storyline"
+                    label = "Storyline"
                     value = {subStoryline}
                     onChange = {(e) => setSubStoryline(e.target.value)}
-                    style={{ height: '100px' }}
+                    style={{width: '500px'}}
                     />
-            
+                <Button type = 'submit' style = {{backgroundColor: '#f7b334', color: 'black', marginTop: '24px', height: '29px', width: '130px'}}>Submit Match Idea!</Button>
+            </Form.Group>
                 <br></br>
                 {wrestlerLine}
-                <button type="submit">Submit Match</button>
                 
-            </form>
-
+            </Form>
+            <div style = {{display: 'flex', flexWrap: 'wrap', margin: 'auto'}}>
             {renderMatchCard}
+            </div>
         </div>
     )
 }

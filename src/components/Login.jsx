@@ -61,9 +61,6 @@ function Login() {
         return <Redirect to='/dashboard'/>
     }
 
-    // if (!user){
-    //     return <Redirect to='/'/>
-    // }
 
 return (
   <div className = 'sign-in-div'>
