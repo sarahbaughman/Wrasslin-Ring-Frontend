@@ -195,15 +195,6 @@ function SubmitStoryline(){
             </form>
 
             {renderMatchCard}
-
-            <form>
-                <input
-                    label = "Label"
-                    type="checkbox"
-                    checked={mychecked}
-                    onChange={e => setMychecked(e.target.checked)}
-                />
-            </form>
         </div>
     )
 }
