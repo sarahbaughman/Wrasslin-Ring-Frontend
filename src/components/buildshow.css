@@ -1,0 +1,16 @@
+.button{
+    background-color:  #f7b334;
+    color: black;
+    height: 30px;
+    font-size: 12px;
+    border: solid;
+    border-radius: 8px;
+    margin-top: 20px;
+    width: 90px;
+}
+
+.show-form{
+    align-items: center;
+    color: white;
+    margin: auto;
+}

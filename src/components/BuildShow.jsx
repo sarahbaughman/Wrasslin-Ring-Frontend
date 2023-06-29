@@ -428,7 +428,7 @@ const [currentShow, setCurrentShow] = useState([])
                                         <Card.Description>{wrestler.user.name}</Card.Description>
                                         )
                                     })}
-                                    <Button basic color='orange' onClick = {editMatch}><strong>Edit Match</strong></Button>
+                                    <Button basic color='black' style = {{backgroundColor: 'black'}}onClick = {editMatch}><strong>Edit Match</strong></Button>
                                     <Button basic color='black' onClick = {deleteMatchClick}><strong>Delete Match</strong></Button>
                                 </Card.Content>
                             </Card>
@@ -534,7 +534,7 @@ const [currentShow, setCurrentShow] = useState([])
     }
 
 return (
-    <div style={{ display: 'inline-block' }}>
+    <div className = 'show-form' style={{ display: 'inline-block' }}>
 
     
     {show.length === 0 ? (
@@ -614,8 +614,8 @@ return (
 
             <br></br>
             {!editMode ? (
-                <Button type="button">Build Show!</Button>
-                ): (<Button type="button" onClick = {submitShowEdit} >Finish Editing Show</Button>)}
+                <button className = 'button' type="button">Build Show!</button>
+                ): (<Button basic color='black' type="button" onClick = {submitShowEdit} >Finish Editing Show</Button>)}
             </Form.Group>
         </Form> 
     </div>
