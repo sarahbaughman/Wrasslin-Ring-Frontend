@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Card, Button } from 'semantic-ui-react'
+import './promotorshowarchive.css'
 
 function PromotorShowArchive(){
 
@@ -26,8 +27,8 @@ function PromotorShowArchive(){
         const formattedDate = `${dateParts[1]}-${dateParts[2]}-${dateParts[0]}`;
 
         return (
-            <Card style={{ width: '80%' }}>
-                <Card.Content>
+            <Card style = {{width: "90%",  margin: 'auto', marginTop: '30px'}}>
+                <Card.Content style = {{color: 'black'}}>
 
                     <Card.Header>{show.name}</Card.Header>
                     <Card.Description>{formattedDate}</Card.Description>
@@ -37,8 +38,8 @@ function PromotorShowArchive(){
                     <Card.Header>Matches:</Card.Header>
                     {show.matches.map(match => {
                         return (
-                            <Card style={{ width: '80%' }}>
-                                <Card.Content>
+                            <Card style = {{marginTop: '5px', width: '100%', border: '3px double black'}}>
+                                <Card.Content style = {{backgroundColor:'#f7b334', color: 'black'}}>
                                     <Card.Header>{match.type}</Card.Header>
                                     <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>
                                     <br></br>
@@ -67,7 +68,7 @@ function PromotorShowArchive(){
 
     return (
         <div style={{ height: '800px'}}>
-            <h1>Show Archive</h1>
+            <h1 className = "custom-heading">Show Archive</h1>
             {renderArchivedShows}
         </div>
     )

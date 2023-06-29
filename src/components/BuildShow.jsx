@@ -616,7 +616,7 @@ return (
             <br></br>
             {!editMode ? (
                 <Button className = 'button' type = 'submit' style = {{backgroundColor: '#f7b334', color: 'black', marginTop: '22px', height: '29px', width: '90px'}}>Build Show!</Button>
-                ): (<Button basic color='black' type="button" onClick = {submitShowEdit} >Finish Editing Show</Button>)}
+                ): (<Button style = {{backgroundColor: '#f7b334', color: 'black', marginTop: '22px', height: '29px', width: '150px'}} type="button" onClick = {submitShowEdit} >Finish Editing Show</Button>)}
             </Form.Group>
         </Form> 
     </div>

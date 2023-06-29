@@ -48,7 +48,7 @@ function SubmitStoryline(){
 
         return (
             <div>
-            <Card className = 'card-div' style = {{backgroundColor: '#f7b334', margin: 'auto', display: 'inline-block', marginLeft: '10px', marginRight: '10px'}}>
+            <Card className = 'card-div' style = {{backgroundColor: '#f7b334', margin: 'auto', display: 'inline-block', marginLeft: '10px', marginRight: '10px', marginTop: '15px',}}>
                 <Card.Content>
 
                     <Card.Header style = {{color : 'black'}}>{match.type}</Card.Header>
@@ -169,12 +169,12 @@ function SubmitStoryline(){
 
 
     return (
-        <div style = {{border :"solid 2px purple", display: 'inline-block', color: 'white'}}>
+        <div style = {{display: 'inline-block', color: 'white', float: 'center'}}>
 
             <h1 className= 'custom-heading'> Storyline Ideas</h1>
 
-            <Form onSubmit = {submitProposedMatch} style = {{margin: 'auto', justify: 'center', outline: 'blue 2px solid'}}>
-            <Form.Group style = {{margin: 'auto', justify:}}>
+            <Form onSubmit = {submitProposedMatch} style = {{margin: 'auto', float: 'center'}}>
+            <Form.Group style = {{float: "center", justifyContent : "center", margin: 'auto'}} >
                 <Form.Field  
                     control = {Input}
                     placeholder = "Match Type" 
@@ -201,7 +201,7 @@ function SubmitStoryline(){
                 {wrestlerLine}
                 
             </Form>
-            <div style = {{display: 'flex', flexWrap: 'wrap', margin: 'auto'}}>
+            <div style = {{marginTop: '30px', display: 'flex', flexWrap: 'wrap', margin: 'auto', justifyContent: 'center'}}>
             {renderMatchCard}
             </div>
         </div>

@@ -23,9 +23,10 @@ function Storylines(){
     const renderStorylines = storylines.map(story => {
         
         return (
-
+            <div>
+            
             <Card>
-                <Card.Content>
+                <Card.Content style = {{backgroundColor:'#f7b334'}}>
 
                     <Card.Header>{story.type}</Card.Header>
                     <Card.Meta>Submitted by {story.submitted_user_name}</Card.Meta>
@@ -41,6 +42,7 @@ function Storylines(){
 
                 </Card.Content>
             </Card>
+            </div>
         
         )})
     
@@ -50,7 +52,7 @@ function Storylines(){
 
     return (
         <div>
-            <h1> Submitted Storyline Ideas</h1>
+            <h1 className = 'custom-heading'> Submitted Storyline Ideas</h1>
             <div className = "wrapper">
             {renderStorylines}
             </div>

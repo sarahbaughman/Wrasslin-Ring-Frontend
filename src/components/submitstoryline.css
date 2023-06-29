@@ -2,7 +2,7 @@
     display: inline-block;
     /* grid-template-columns: repeat(3, 1fr); */
     margin: auto;
-    outline: 9px dotted ;
+    outline: 9px dotted white;
     width: 100%;
     margin-top: 0px;
 }
@@ -11,6 +11,7 @@
     margin: auto;
     text-align: center; 
     color: white;
-    font-size: 50px;
+    font-size: 80px;
     margin-bottom: 20px;
 }
+
