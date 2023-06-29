@@ -20,18 +20,20 @@ import './login.css'
 
 import { UserContext } from './../context/UserContext';
 
-function Copyright(props) {
-    return (
-      <Typography variant="body2" color="text.secondary" align="center" {...props}>
-        {'Copyright © '}
-        <Link color="inherit" to = "https://mui.com/" href="https://mui.com/">
-          Wrasslin' Ring
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-    );
-  }
+// function Copyright(props) {
+//     return (
+//       <div >
+//       <Typography variant="body2" color="text.secondary" align="center" {...props}>
+//         {'Copyright © '}
+//         <Link color="inherit" to = "https://mui.com/" href="https://mui.com/">
+//           Wrasslin' Ring
+//         </Link>{' '}
+//         {new Date().getFullYear()}
+//         {'.'}
+//       </Typography>
+//       </div>
+//     );
+//   }
 
 const defaultTheme = createTheme();
 
@@ -129,7 +131,7 @@ return (
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
+        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     {/* </ThemeProvider> */}
     

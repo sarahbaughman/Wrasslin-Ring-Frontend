@@ -247,7 +247,7 @@ const [currentShow, setCurrentShow] = useState([])
                 <Card.Content style = {{color: 'black'}} >
 
                     <Card.Header>{show.name}</Card.Header>
-                    <Card.Description>{formattedDate}</Card.Description>
+                    <Card.Description><stong>Date:</stong> {formattedDate}</Card.Description>
                     <Card.Description><strong>Location:</strong> {show.venue},  {show.address},  {show.city}, {show.state}</Card.Description>
                     <Card.Description><strong>Where To View: </strong>{show.where_to_view}</Card.Description>
                     <br></br>
