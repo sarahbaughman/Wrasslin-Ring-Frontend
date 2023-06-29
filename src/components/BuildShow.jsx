@@ -243,7 +243,7 @@ const [currentShow, setCurrentShow] = useState([])
 
         return (
             <Card style = {{width: "90%"}} >
-                <Card.Content>
+                <Card.Content >
 
                     <Card.Header>{show.name}</Card.Header>
                     <Card.Description>{formattedDate}</Card.Description>
@@ -379,7 +379,7 @@ const [currentShow, setCurrentShow] = useState([])
 
         return (
             <Card style = {{width: "90%"}}>
-                <Card.Content >
+                <Card.Content>
 
                     <Card.Header>{show.name}</Card.Header>
                     <Card.Description><strong>Date:</strong> {formattedDate}</Card.Description>
@@ -417,10 +417,10 @@ const [currentShow, setCurrentShow] = useState([])
                 
                         
                         return (
-                            <Card style = {{width: "100%"}}>
-                                <Card.Content>
+                            <Card style = {{marginTop: '5px', width: '100%', border: '3px double black'}}>
+                                <Card.Content style = {{backgroundColor:'#f7b334', color: 'black'}}>
                                     <Card.Header>{match.type}</Card.Header>
-                                    <Card.Description><strong>Storyline: </strong>{match.storyline}</Card.Description>
+                                    <Card.Description style = {{color: 'black'}}><strong>Storyline: </strong>{match.storyline}</Card.Description>
                                     <br></br>
                                     <Card.Description><strong>Wrestlers:</strong></Card.Description>
                                     {match.match_wrestlers.map(wrestler => {

@@ -13,7 +13,7 @@ function Dashboard(){
     
             {user && user.role === 'promotor' ? (
                 <>
-                    <h1> Welcome{user.name}! </h1>
+                    <h1> Welcome {user.name}! </h1>
                     <p>Checkout the feed below for the latest kickass wrestling news:</p>
                     <div>
                         <iframe style={{ height: '800px', width: '900px'}} src="https://www.wrestle.buzz/"></iframe>
