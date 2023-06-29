@@ -69,7 +69,7 @@ return (
   <div className = 'sign-in-div'>
 
     {/* <ThemeProvider theme={defaultTheme}> */}
-        <Container component="main" maxWidth="xs">
+        <Container className = 'signup-container' component="main" maxWidth="xs">
         <CssBaseline />
         <Box
             sx={{
@@ -125,8 +125,8 @@ return (
               <Grid item xs>
               </Grid>
               <Grid item>
-                <Link to='/createnewaccount' href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link style = {{color:'white'}}to='/createnewaccount' href="#" variant="body2">
+                  {"Don't have an account? Click to Sign Up"}
                 </Link>
               </Grid>
             </Grid>
